@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSVG", "FSVG\FSVG.fsproj", "{BB8B3E40-87B9-4A13-8BE0-F111160F3BEE}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSVG.App", "FSVG.App\FSVG.App.fsproj", "{665068D4-FBCA-433F-B809-D908074A37E5}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSVG.Charts", "FSVG.Charts\FSVG.Charts.fsproj", "{AAF53ABD-BE8F-4449-87BC-EDDE07A15975}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB8B3E40-87B9-4A13-8BE0-F111160F3BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB8B3E40-87B9-4A13-8BE0-F111160F3BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB8B3E40-87B9-4A13-8BE0-F111160F3BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB8B3E40-87B9-4A13-8BE0-F111160F3BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{665068D4-FBCA-433F-B809-D908074A37E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{665068D4-FBCA-433F-B809-D908074A37E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{665068D4-FBCA-433F-B809-D908074A37E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{665068D4-FBCA-433F-B809-D908074A37E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAF53ABD-BE8F-4449-87BC-EDDE07A15975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAF53ABD-BE8F-4449-87BC-EDDE07A15975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAF53ABD-BE8F-4449-87BC-EDDE07A15975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAF53ABD-BE8F-4449-87BC-EDDE07A15975}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
