@@ -7,20 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FSVG.App/.dockerignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FSVG.App/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FSVG.Charts/BarCharts.fs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FSVG.Charts/Common.fs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FSVG.Charts/FunnelCharts.fs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FSVG.Charts/LineCharts.fs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FSVG.Charts/PieCharts.fs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FSVG.sln" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FSVG/Common.fs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FSVG/FSVG.fsproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FSVG/Rendering.fs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FSVG/SVG.fs" afterDir="false" />
+    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="Refactored LineCharts.fs to support multiple series and styling">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FSVG.App/Program.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.App/Program.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FSVG.Charts/LineCharts.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/LineCharts.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FSVG/Common.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG/Common.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FSVG/SVG.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG/SVG.fs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,12 +22,16 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG/Common.fs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="0ma01xvv" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectId" id="2CAnjwzmckRlFaihfZ147hOcGIp" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -98,8 +94,16 @@
       <workItem from="1660602481916" duration="30000" />
       <workItem from="1660672776063" duration="4855000" />
       <workItem from="1673089745539" duration="780000" />
-      <workItem from="1683135813486" duration="3029000" />
+      <workItem from="1683135813486" duration="11270000" />
     </task>
+    <task id="LOCAL-00001" summary="Added FSVG.Charts.fsproj">
+      <created>1683140416015</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1683140416015</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,5 +124,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Added FSVG.Charts.fsproj" />
+    <MESSAGE value="Refactored LineCharts.fs to support multiple series and styling" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored LineCharts.fs to support multiple series and styling" />
   </component>
 </project>

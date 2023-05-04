@@ -69,3 +69,17 @@ module Helpers =
         createBezierCommands points
         |> fun cmds -> ({ Commands = cmds; Style = style }: PathElement)
         |> Element.Path
+
+    let createStraightCommands (points: SvgPoints) =
+        points.Values
+        |> Array.mapi (fun i p ->
+            match i = 0 with
+            | true ->
+                ({ Point = { X = p.X; Y = p.Y }
+                   IsRelative = false }: MoveToCommand)
+                |> PathCommand.MoveTo
+            | false ->
+                ({ Point = p
+                   IsRelative = false }: LineToCommand)
+                |> PathCommand.LineTo)
+        |> List.ofArray

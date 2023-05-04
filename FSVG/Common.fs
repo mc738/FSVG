@@ -50,10 +50,29 @@ module Common =
         member p.Advance() =
             match p.IsInBounds(p.CurrentIndex + 1) with
             | true ->
-                { p with CurrentIndex = p.CurrentIndex + 1 }
+                { p with
+                    CurrentIndex = p.CurrentIndex + 1 }
                 |> Some
             | false -> None
 
+    [<RequireQualifiedAccess>]
+    type SvgColor =
+        | Named of Name: string
+        | Hex of Value: string
+        | Rgba of R: byte * G: byte * B: byte * A: float
+        | Hsl of H: byte * S: byte * L: byte
+
+        static member Black = SvgColor.Named "black"
+        
+        static member Grey = SvgColor.Named "grey"
+        
+        member sc.GetValue() =
+            match sc with
+            | Named name -> name
+            | Hex value -> $"#{value}"
+            | Rgba(r, g, b, a) -> $"rgba({r}, {g}, {b}, {a})"
+            | Hsl(h,s, l) -> $"hsl({h},{s}%%, {l}%%)"
+  
     /// An SVG style.
     type Style =
         { Fill: string option
@@ -80,20 +99,20 @@ module Common =
                 | true -> ""
                 | false ->
                     let style =
-                        s.GenericValues |> Map.toList |> List.map (fun (k, v) -> $"{k}: {v};") |> String.concat ""
+                        s.GenericValues
+                        |> Map.toList
+                        |> List.map (fun (k, v) -> $"{k}: {v};")
+                        |> String.concat ""
+
                     $" style='{style}'"
 
-            let fill =
-                s.Fill |> Option.defaultValue "none"
+            let fill = s.Fill |> Option.defaultValue "none"
 
-            let stroke =
-                s.Stroke |> Option.defaultValue "none"
+            let stroke = s.Stroke |> Option.defaultValue "none"
 
-            let opacity =
-                s.Opacity |> Option.defaultValue 0.
+            let opacity = s.Opacity |> Option.defaultValue 0.
 
-            let strokeWidth =
-                s.StrokeWidth |> Option.defaultValue 0.
+            let strokeWidth = s.StrokeWidth |> Option.defaultValue 0.
 
             $"""{start}fill="{fill}" stroke="{stroke}" stroke-width="{strokeWidth}" opacity="{opacity}"{e}"""
 
@@ -184,10 +203,7 @@ module Common =
             { Points = []; Style = Style.Default() }
 
         member p.Render() =
-            let points =
-                p.Points
-                |> List.map (fun p -> p.Render())
-                |> String.concat " "
+            let points = p.Points |> List.map (fun p -> p.Render()) |> String.concat " "
 
             $"""<polygon points="{points}"{p.Style.Render(true)} />"""
 
@@ -200,10 +216,7 @@ module Common =
             { Points = []; Style = Style.Default() }
 
         member p.Render() =
-            let points =
-                p.Points
-                |> List.map (fun p -> p.Render())
-                |> String.concat " "
+            let points = p.Points |> List.map (fun p -> p.Render()) |> String.concat " "
 
             $"""<polyline points="{points}"{p.Style.Render(true)} />"""
 
@@ -217,10 +230,7 @@ module Common =
               Style = Style.Default() }
 
         member p.Render() =
-            let d =
-                p.Commands
-                |> List.map (fun cmd -> cmd.Render())
-                |> String.concat " "
+            let d = p.Commands |> List.map (fun cmd -> cmd.Render()) |> String.concat " "
 
             $"""<path d="{d}"{p.Style.Render(true)} />"""
 
@@ -399,10 +409,7 @@ module Common =
               Style = Style.Default() }
 
         member t.Render() =
-            let contents =
-                t.Value
-                |> List.map (fun tt -> tt.Render())
-                |> String.concat " "
+            let contents = t.Value |> List.map (fun tt -> tt.Render()) |> String.concat " "
 
             $"""<text x="{t.X}" y="{t.Y}"{t.Style.Render(true)}>{contents}</text>"""
 
@@ -453,15 +460,12 @@ module Common =
         { Elements: Element list }
 
         member sd.Render(?viewBoxHeight: int, ?viewBoxWidth: int) =
-            let elements =
-                sd.Elements
-                |> List.map (fun el -> el.Render())
-                |> String.concat " "
+            let elements = sd.Elements |> List.map (fun el -> el.Render()) |> String.concat " "
             // TODO add defs.
             // TODO add view box
             let vbHeight = viewBoxHeight |> Option.defaultValue 100
             let vbWidth = viewBoxWidth |> Option.defaultValue 100
-            
+
             $"""<svg viewBox="0 0 {vbWidth} {vbHeight}" version="1.1" xmlns="http://www.w3.org/2000/svg" class="svg">
                     {elements}
                 </svg>"""
