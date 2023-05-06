@@ -96,17 +96,8 @@ module LineChartTest =
         *)
 
         let seriesCollection =
-            ({ SplitValueHandler =
-                fun percent maxValue minValue ->
-                    let diff = float (maxValue - minValue)
-                    
-                    (float minValue) + ((diff / 100.) * percent) |> int |> (fun r -> r.ToString())
-               Normalizer = fun p ->
-                   let min = float p.MinValue
-                   let max = float p.MaxValue
-                   let v = float p.Value
-                   
-                   ((v - min) * 100.) / (max - min)
+            ({ SplitValueHandler = valueSplitter float
+               Normalizer = rangeNormalizer<int> float
                PointNames =
                  [ "Item 1"
                    "Item 2"
@@ -133,7 +124,7 @@ module LineChartTest =
                    ] }
             : LineCharts.SeriesCollection<int>)
 
-        LineCharts.generate settings seriesCollection 100 0
+        LineCharts.generate settings seriesCollection 0 100
         |> fun r -> File.WriteAllText("C:\\ProjectData\\TestSvgs\\FSVG-test_line_chart.svg", r)
         
 module LineChartTest2 =
@@ -162,17 +153,8 @@ module LineChartTest2 =
         *)
 
         let seriesCollection =
-            ({ SplitValueHandler =
-                fun percent maxValue minValue ->
-                    let diff = float (maxValue - minValue)
-                    
-                    (float minValue) + ((diff / 100.) * percent) |> int |> (fun r -> r.ToString())
-               Normalizer = fun p ->
-                   let min = float p.MinValue
-                   let max = float p.MaxValue
-                   let v = float p.Value
-                   
-                   ((v - min) * 100.) / (max - min)
+            ({ SplitValueHandler = valueSplitter float
+               Normalizer = rangeNormalizer<int> float
                PointNames =
                  [ "Item 1"
                    "Item 2"
@@ -199,7 +181,7 @@ module LineChartTest2 =
                    ] }
             : LineCharts.SeriesCollection<int>)
 
-        LineCharts.generate settings seriesCollection 100 -100
+        LineCharts.generate settings seriesCollection -100 100
         |> fun r -> File.WriteAllText("C:\\ProjectData\\TestSvgs\\FSVG-test_line_chart-2.svg", r)
 
 

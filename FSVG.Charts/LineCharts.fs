@@ -79,7 +79,7 @@ module LineCharts =
     let private createYMarks (settings: Settings) (height: float) (width: float) (maxValue: 'T) (minValue: 'T) (seriesCollection: SeriesCollection<'T>) =
         let zero =
             let y = float (height + settings.TopOffset)
-            let value = seriesCollection.SplitValueHandler 0. maxValue minValue
+            let value = seriesCollection.SplitValueHandler 0. minValue maxValue
             $"""<path d="M {settings.LeftOffset - 1.} {y} L {settings.LeftOffset} {y}" fill="none" stroke="grey" style="stroke-width: 0.2" />
                             <text x="{8}" y="{y + 0.5}" style="font-size: 2px; text-anchor: end; font-family: 'roboto'">{value}</text>"""
         
@@ -88,7 +88,7 @@ module LineCharts =
             |> List.map (fun m ->
                 let y = float (height + settings.TopOffset) - ((float m / 100.) * float height) // + settings.TopOffset
                 //(float normalizedValue / 100.) * float maxHeight
-                let value = seriesCollection.SplitValueHandler m maxValue minValue
+                let value = seriesCollection.SplitValueHandler m minValue maxValue
 
                 $"""<path d="M {settings.LeftOffset - 1.} {y} L {width + settings.LeftOffset} {y}" fill="none" stroke="grey" style="stroke-width: 0.2" />
                             <text x="{8}" y="{y + 0.5}" style="font-size: 2px; text-anchor: end; font-family: 'roboto'">{value}</text>""")
@@ -114,7 +114,7 @@ module LineCharts =
     let private createXAxis (height: int) (leftOffset: int) (length: int) =
         $"""<path d="M {leftOffset} {height} L {leftOffset + length} {height}" fill="none" stroke="grey" stroke-width="0.2" />"""
 
-    let generate (settings: Settings) (seriesCollection: SeriesCollection<'T>) (maxValue: 'T) (minValue: 'T) =
+    let generate (settings: Settings) (seriesCollection: SeriesCollection<'T>) (minValue: 'T) (maxValue: 'T) =
         // TODO validate series?
         let height = 100. - settings.TopOffset - settings.BottomOffset
 

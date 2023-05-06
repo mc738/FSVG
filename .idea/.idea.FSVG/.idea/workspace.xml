@@ -7,7 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="Refactored LineCharts.fs to support multiple series and styling">
+    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="Added support for ranges in line charts">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FSVG.App/Program.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.App/Program.fs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FSVG.Charts/Common.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/Common.fs" afterDir="false" />
@@ -94,7 +94,7 @@
       <workItem from="1660672776063" duration="4855000" />
       <workItem from="1673089745539" duration="780000" />
       <workItem from="1683135813486" duration="11270000" />
-      <workItem from="1683238120863" duration="5986000" />
+      <workItem from="1683238120863" duration="8252000" />
     </task>
     <task id="LOCAL-00001" summary="Added FSVG.Charts.fsproj">
       <created>1683140416015</created>
@@ -110,7 +110,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683238159426</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added support for ranges in line charts">
+      <created>1683372377306</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1683372377306</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,6 +140,7 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Added FSVG.Charts.fsproj" />
     <MESSAGE value="Refactored LineCharts.fs to support multiple series and styling" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored LineCharts.fs to support multiple series and styling" />
+    <MESSAGE value="Added support for ranges in line charts" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added support for ranges in line charts" />
   </component>
 </project>
