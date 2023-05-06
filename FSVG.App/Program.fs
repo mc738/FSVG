@@ -97,8 +97,16 @@ module LineChartTest =
 
         let seriesCollection =
             ({ SplitValueHandler =
-                fun percent maxValue -> (float maxValue / float 100) * float percent |> int |> (fun r -> r.ToString())
-               Normalizer = fun p -> (float p.Value / float p.MaxValue) * 100.
+                fun percent maxValue minValue ->
+                    let diff = float (maxValue - minValue)
+                    
+                    (float minValue) + ((diff / 100.) * percent) |> int |> (fun r -> r.ToString())
+               Normalizer = fun p ->
+                   let min = float p.MinValue
+                   let max = float p.MaxValue
+                   let v = float p.Value
+                   
+                   ((v - min) * 100.) / (max - min)
                PointNames =
                  [ "Item 1"
                    "Item 2"
@@ -125,11 +133,78 @@ module LineChartTest =
                    ] }
             : LineCharts.SeriesCollection<int>)
 
-        LineCharts.generate settings seriesCollection 100
+        LineCharts.generate settings seriesCollection 100 0
         |> fun r -> File.WriteAllText("C:\\ProjectData\\TestSvgs\\FSVG-test_line_chart.svg", r)
+        
+module LineChartTest2 =
+
+    open FSVG.Charts
+
+    let run _ =
+
+        let settings =
+            ({ LeftOffset = 10
+               BottomOffset = 10
+               TopOffset = 10
+               RightOffset = 10
+               Title = None
+               XLabel = None
+               YMajorMarks = [ 50; 100 ]
+               YMinorMarks = [ 25; 75 ] }
+            : LineCharts.Settings)
+
+        (*
+        "Item 1"
+        "Item 2"
+        "Item 3"
+        "Item 4"
+        "Item 5"
+        *)
+
+        let seriesCollection =
+            ({ SplitValueHandler =
+                fun percent maxValue minValue ->
+                    let diff = float (maxValue - minValue)
+                    
+                    (float minValue) + ((diff / 100.) * percent) |> int |> (fun r -> r.ToString())
+               Normalizer = fun p ->
+                   let min = float p.MinValue
+                   let max = float p.MaxValue
+                   let v = float p.Value
+                   
+                   ((v - min) * 100.) / (max - min)
+               PointNames =
+                 [ "Item 1"
+                   "Item 2"
+                   "Item 3"
+                   "Item 4"
+                   "Item 5"]
+               Series =
+                 [ ({ Style =
+                       { Color = SvgColor.Grey
+                         StokeWidth = 0.3
+                         LineType = LineCharts.LineType.Straight 
+                         Shading =
+                           ({ Color = SvgColor.Rgba(255uy, 0uy, 0uy, 0.3) }: LineCharts.ShadingOptions)
+                           |> Some }
+                      Values = [ -50; 40; -20; 40; -30 ] }
+                   : LineCharts.Series<int>)
+                   ({ Style =
+                       { Color = SvgColor.Black
+                         StokeWidth = 0.3
+                         LineType = LineCharts.LineType.Bezier
+                         Shading = None }
+                      Values = [ 20; -40; 30; -70; 80 ] }
+                   : LineCharts.Series<int>)
+                   ] }
+            : LineCharts.SeriesCollection<int>)
+
+        LineCharts.generate settings seriesCollection 100 -100
+        |> fun r -> File.WriteAllText("C:\\ProjectData\\TestSvgs\\FSVG-test_line_chart-2.svg", r)
 
 
 LineChartTest.run ()
+LineChartTest2.run ()
 
 // For more information see https://aka.ms/fsharp-console-apps
 printfn "Hello from F#"

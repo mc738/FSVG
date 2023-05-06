@@ -12,7 +12,7 @@ module Common =
 
     type ValueNormalizer<'T> = NormalizerParameters<'T> -> float
 
-    and NormalizerParameters<'T> = { MaxValue: 'T; Value: 'T }
+    and NormalizerParameters<'T> = { MaxValue: 'T; MinValue: 'T; Value: 'T }
 
     //type ChartContext = {
     //    Normalizer:

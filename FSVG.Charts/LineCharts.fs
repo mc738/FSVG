@@ -9,7 +9,7 @@ module LineCharts =
     open FSVG
     
     type SeriesCollection<'T> =
-        { SplitValueHandler: float -> 'T -> string
+        { SplitValueHandler: float -> 'T -> 'T -> string
           Normalizer: ValueNormalizer<'T>
           PointNames: string list
           Series: Series<'T> list }
@@ -76,13 +76,19 @@ module LineCharts =
             $"""<text x="{settings.LeftOffset + (width / 2.)}" y="{height + 6.}" style="font-size: 2px; text-anchor: middle; font-family: 'roboto'">{label}</text>"""
         | None -> String.Empty
 
-    let private createYMarks (settings: Settings) (height: float) (width: float) (maxValue: 'T) (seriesCollection: SeriesCollection<'T>) =
+    let private createYMarks (settings: Settings) (height: float) (width: float) (maxValue: 'T) (minValue: 'T) (seriesCollection: SeriesCollection<'T>) =
+        let zero =
+            let y = float (height + settings.TopOffset)
+            let value = seriesCollection.SplitValueHandler 0. maxValue minValue
+            $"""<path d="M {settings.LeftOffset - 1.} {y} L {settings.LeftOffset} {y}" fill="none" stroke="grey" style="stroke-width: 0.2" />
+                            <text x="{8}" y="{y + 0.5}" style="font-size: 2px; text-anchor: end; font-family: 'roboto'">{value}</text>"""
+        
         let major =
             settings.YMajorMarks
             |> List.map (fun m ->
                 let y = float (height + settings.TopOffset) - ((float m / 100.) * float height) // + settings.TopOffset
                 //(float normalizedValue / 100.) * float maxHeight
-                let value = seriesCollection.SplitValueHandler m maxValue
+                let value = seriesCollection.SplitValueHandler m maxValue minValue
 
                 $"""<path d="M {settings.LeftOffset - 1.} {y} L {width + settings.LeftOffset} {y}" fill="none" stroke="grey" style="stroke-width: 0.2" />
                             <text x="{8}" y="{y + 0.5}" style="font-size: 2px; text-anchor: end; font-family: 'roboto'">{value}</text>""")
@@ -94,13 +100,13 @@ module LineCharts =
             |> List.map (fun m ->
                 let y = float (height + settings.TopOffset) - ((float m / 100.) * float height) // + settings.TopOffset
                 //(float normalizedValue / 100.) * float maxHeight
-                let value = seriesCollection.SplitValueHandler m maxValue
+                let value = seriesCollection.SplitValueHandler m maxValue minValue
 
                 $"""<path d="M {settings.LeftOffset - 1.} {y} L {width + settings.LeftOffset} {y}" fill="none" stroke="grey" style="stroke-width: 0.1" />
                             <text x="{8}" y="{y + 0.5}" style="font-size: 2px; text-anchor: end; font-family: 'roboto'">{value}</text>""")
             |> String.concat Environment.NewLine
 
-        [ major; minor ] |> String.concat Environment.NewLine
+        [ zero; major; minor ] |> String.concat Environment.NewLine
 
     let private createYAxis (bottomOffset: int) (leftOffset: int) (height: int) =
         $"""<path d="M {leftOffset} {bottomOffset} L {leftOffset} {bottomOffset + height}" fill="none" stroke="grey" stroke-width="0.2" />"""
@@ -108,7 +114,7 @@ module LineCharts =
     let private createXAxis (height: int) (leftOffset: int) (length: int) =
         $"""<path d="M {leftOffset} {height} L {leftOffset + length} {height}" fill="none" stroke="grey" stroke-width="0.2" />"""
 
-    let generate (settings: Settings) (seriesCollection: SeriesCollection<'T>) (maxValue: 'T) =
+    let generate (settings: Settings) (seriesCollection: SeriesCollection<'T>) (maxValue: 'T) (minValue: 'T) =
         // TODO validate series?
         let height = 100. - settings.TopOffset - settings.BottomOffset
 
@@ -122,14 +128,14 @@ module LineCharts =
               createYAxis 10 10 80
               createXMarks settings seriesCollection height pointWidth
               createXLabel settings height width
-              createYMarks settings height width maxValue seriesCollection ]
+              createYMarks settings height width maxValue minValue seriesCollection ]
 
         let renderSeries =
             seriesCollection.Series
             |> List.collect (fun series ->
                 series.Values
                 |> List.mapi (fun i v ->
-                    let value = seriesCollection.Normalizer { MaxValue = maxValue; Value = v }
+                    let value = seriesCollection.Normalizer { MaxValue = maxValue; MinValue = minValue; Value = v }
                 
                     let invertedY = settings.BottomOffset + (((100. - value) / 100.) * height)
                 
