@@ -1,32 +1,33 @@
 ﻿namespace FSVG.Charts
 
 open System.IO
+open FSVG
 
 [<RequireQualifiedAccess>]
 module LineCharts =
 
     open System
     open FSVG
-    
+
     type SeriesCollection<'T> =
         { SplitValueHandler: float -> 'T -> 'T -> string
           Normalizer: ValueNormalizer<'T>
           PointNames: string list
           Series: Series<'T> list }
 
-        member sc.SeriesLength() =
-            sc.PointNames.Length
+        member sc.SeriesLength() = sc.PointNames.Length
 
         member sc.Validate() =
 
             // Check all series are the same length and have the same "values"
 
             ()
-    
+
     and Series<'T> =
-        { Style: SeriesStyle
+        { Name: string
+          Style: SeriesStyle
           Values: 'T list }
-        
+
         member s.GetValue(index: int, defaultValue: 'T) =
             s.Values |> List.tryItem index |> Option.defaultValue defaultValue
 
@@ -41,7 +42,8 @@ module LineCharts =
     and [<RequireQualifiedAccess>] LineType =
         | Bezier
         | Straight
-    
+
+
     type Settings =
         { BottomOffset: float
           LeftOffset: float
@@ -49,8 +51,14 @@ module LineCharts =
           RightOffset: float
           Title: string option
           XLabel: string option
+          YLabel: string option
+          LegendStyle: LegendStyle option
           YMajorMarks: float list
           YMinorMarks: float list }
+
+    and LegendStyle =
+        { Position: LegendPosition
+          Bordered: bool }
 
     let private createTitle (settings: Settings) (width: float) =
         match settings.Title with
@@ -58,7 +66,12 @@ module LineCharts =
             $"""<text x="{settings.LeftOffset + (width / 2.)}" y="{5.}" style="font-size: 4px; text-anchor: middle; font-family: 'roboto'">{title}</text>"""
         | None -> String.Empty
 
-    let private createXMarks (settings: Settings) (seriesCollection: SeriesCollection<'T>) (height: float) (barWidth: float) =
+    let private createXMarks
+        (settings: Settings)
+        (seriesCollection: SeriesCollection<'T>)
+        (height: float)
+        (barWidth: float)
+        =
         let height = height + settings.TopOffset
 
         seriesCollection.PointNames
@@ -76,13 +89,29 @@ module LineCharts =
             $"""<text x="{settings.LeftOffset + (width / 2.)}" y="{height + 6.}" style="font-size: 2px; text-anchor: middle; font-family: 'roboto'">{label}</text>"""
         | None -> String.Empty
 
-    let private createYMarks (settings: Settings) (height: float) (width: float) (maxValue: 'T) (minValue: 'T) (seriesCollection: SeriesCollection<'T>) =
+    let private createYLabel (settings: Settings) (height: float) (width: float) =
+        match settings.YLabel with
+        | Some label ->
+            // The 52/ 48 in the transform come from the fact that font size is 2.
+            $"""<text x="{2.}" y="{settings.TopOffset + (height / 2.)}" style="font-size: 2px; text-anchor: middle; font-family: 'roboto'; transform: rotate(270deg) translateX(-52px) translateY(-48px)">{label}</text>"""
+
+        | None -> String.Empty
+
+    let private createYMarks
+        (settings: Settings)
+        (height: float)
+        (width: float)
+        (maxValue: 'T)
+        (minValue: 'T)
+        (seriesCollection: SeriesCollection<'T>)
+        =
         let zero =
             let y = float (height + settings.TopOffset)
             let value = seriesCollection.SplitValueHandler 0. minValue maxValue
+
             $"""<path d="M {settings.LeftOffset - 1.} {y} L {settings.LeftOffset} {y}" fill="none" stroke="grey" style="stroke-width: 0.2" />
                             <text x="{8}" y="{y + 0.5}" style="font-size: 2px; text-anchor: end; font-family: 'roboto'">{value}</text>"""
-        
+
         let major =
             settings.YMajorMarks
             |> List.map (fun m ->
@@ -114,7 +143,67 @@ module LineCharts =
     let private createXAxis (height: int) (leftOffset: int) (length: int) =
         $"""<path d="M {leftOffset} {height} L {leftOffset + length} {height}" fill="none" stroke="grey" stroke-width="0.2" />"""
 
+
+    let private createLegend (settings: Settings) (seriesCollection: SeriesCollection<'T>) =
+        match settings.LegendStyle with
+        | None -> String.Empty
+        | Some value ->
+            match value.Position with
+            | LegendPosition.Right ->
+                let legendHeight =
+                    seriesCollection.Series.Length * 2 + ((seriesCollection.Series.Length - 1) * 2)
+                    |> float
+
+                let start = 50. - (legendHeight / 2.)
+
+                seriesCollection.Series
+                |> List.mapi (fun i s ->
+                    let y = ((float i * 2.) + (float i * 2.)) + start
+
+                    [ Dsl.rect
+                          ({ Fill = s.Style.Color.GetValue() |> Some
+                             Opacity = Some 1.
+                             Stroke = None
+                             StrokeWidth = None
+                             GenericValues = Map.empty }
+                          : FSVG.Common.Style)
+                          0.
+                          0.
+                          2.
+                          2.
+                          100.
+                          y
+                      |> Element.GetString
+                      Dsl.text
+                          ({ Fill = SvgColor.Black.GetValue() |> Some
+                             Stroke = None
+                             StrokeWidth = None
+                             Opacity = Some 1.
+                             GenericValues =
+                               [ "font-family", "roboto"
+                                 "font-size", "2px"
+                                 // This is from testing. It could be tweaked.
+                                 "transform", "translateY(1.75%)" ]
+                               |> Map.ofList }
+                          : FSVG.Common.Style)
+                          104.
+                          y
+                          [ TextType.Literal s.Name ]
+                      |> Element.GetString ])
+                |> List.concat
+                |> String.concat Environment.NewLine
+            | LegendPosition.Bottom -> String.Empty
+
     let generate (settings: Settings) (seriesCollection: SeriesCollection<'T>) (minValue: 'T) (maxValue: 'T) =
+        let (vbHeight, vbWidth) =
+            match settings.LegendStyle with
+            | Some legendStyle ->
+                match legendStyle.Position with
+                | LegendPosition.Right -> 100, 120
+                | LegendPosition.Bottom -> 120, 100
+            | None -> 100, 100
+
+
         // TODO validate series?
         let height = 100. - settings.TopOffset - settings.BottomOffset
 
@@ -128,17 +217,23 @@ module LineCharts =
               createYAxis 10 10 80
               createXMarks settings seriesCollection height pointWidth
               createXLabel settings height width
-              createYMarks settings height width maxValue minValue seriesCollection ]
+              createYMarks settings height width maxValue minValue seriesCollection
+              createYLabel settings height width
+              createLegend settings seriesCollection ]
 
         let renderSeries =
             seriesCollection.Series
             |> List.collect (fun series ->
                 series.Values
                 |> List.mapi (fun i v ->
-                    let value = seriesCollection.Normalizer { MaxValue = maxValue; MinValue = minValue; Value = v }
-                
+                    let value =
+                        seriesCollection.Normalizer
+                            { MaxValue = maxValue
+                              MinValue = minValue
+                              Value = v }
+
                     let invertedY = settings.BottomOffset + (((100. - value) / 100.) * height)
-                
+
                     { X = settings.LeftOffset + (float i * pointWidth)
                       Y = invertedY })
                 |> fun p ->
@@ -150,11 +245,13 @@ module LineCharts =
                     | LineType.Straight -> Helpers.createStraightCommands ps
                 |> fun r ->
                     let path = r |> List.map (fun c -> c.Render()) |> String.concat " "
-                
+
                     [ $"""<path d="{path}" fill="none" stroke="{series.Style.Color.GetValue()}" style="stroke-width: {series.Style.StokeWidth}" />"""
                       match series.Style.Shading with
                       | Some s ->
                           $"""<path d="{path} L {100. - settings.RightOffset} {100. - settings.BottomOffset} L {settings.LeftOffset} {100. - settings.BottomOffset} Z" fill="{s.Color.GetValue()}" stroke="none" style="stroke-width: {series.Style.StokeWidth}" />"""
                       | None -> () ])
-            
-        chart @ renderSeries |> String.concat Environment.NewLine |> boilerPlate true
+
+        chart @ renderSeries
+        |> String.concat Environment.NewLine
+        |> boilerPlate true vbWidth vbHeight

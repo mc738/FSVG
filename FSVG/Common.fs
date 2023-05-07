@@ -444,6 +444,8 @@ module Common =
         | Path of PathElement
         | Text of TextElement
 
+        static member GetString(element: Element) = element.Render()
+        
         member e.Render() =
             match e with
             | Rect r -> r.Render()

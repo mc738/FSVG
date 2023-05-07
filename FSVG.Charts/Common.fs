@@ -12,7 +12,10 @@ module Common =
 
     type ValueNormalizer<'T> = NormalizerParameters<'T> -> float
 
-    and NormalizerParameters<'T> = { MaxValue: 'T; MinValue: 'T; Value: 'T }
+    and NormalizerParameters<'T> =
+        { MaxValue: 'T
+          MinValue: 'T
+          Value: 'T }
 
     //type ChartContext = {
     //    Normalizer:
@@ -25,7 +28,10 @@ module Common =
           Value: 'T
           Color: string }
 
-
+    [<RequireQualifiedAccess>]
+    type LegendPosition =
+        | Right
+        | Bottom
 
     /// Embed roboto font.
     let defs =
@@ -44,9 +50,9 @@ module Common =
         </defs>
         """
 
-    let boilerPlate includeDefs content =
+    let boilerPlate includeDefs vbWidth vbHeight content =
         $"""
-        <svg viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" class="svg">
+        <svg viewBox="0 0 {vbWidth} {vbHeight}" version="1.1" xmlns="http://www.w3.org/2000/svg" class="svg">
             {match includeDefs with
              | true -> defs
              | false -> String.Empty}
@@ -56,23 +62,22 @@ module Common =
     let valueSplitter<'T> (toFloatFn: 'T -> float) (percent: float) (minValue: 'T) (maxValue: 'T) =
         let max = toFloatFn maxValue
         let min = toFloatFn minValue
-        
+
         min + (((max - min) / 100.) * percent) |> string
 
     let floatValueSplitter (percent: float) (minValue: float) (maxValue: float) =
         minValue + (((maxValue - minValue) / 100.) * percent) |> string
-            
+
     let rangeNormalizer<'T> (toFloatFn: 'T -> float) (parameters: NormalizerParameters<'T>) =
         // From https://stackoverflow.com/questions/25835591/how-to-calculate-percentage-between-the-range-of-two-values-a-third-value-is
         let min = toFloatFn parameters.MinValue
         let max = toFloatFn parameters.MaxValue
         let v = toFloatFn parameters.Value
-       
+
         ((v - min) * 100.) / (max - min)
-        
-    
+
+
     let floatRangeNormalizer (parameters: NormalizerParameters<float>) =
         // From https://stackoverflow.com/questions/25835591/how-to-calculate-percentage-between-the-range-of-two-values-a-third-value-is
-        ((parameters.Value - parameters.MinValue) * 100.) / (parameters.MaxValue - parameters.MinValue)
-        
-        
+        ((parameters.Value - parameters.MinValue) * 100.)
+        / (parameters.MaxValue - parameters.MinValue)

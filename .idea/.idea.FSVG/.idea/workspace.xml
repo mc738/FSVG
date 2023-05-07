@@ -7,11 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="Added support for ranges in line charts">
+    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="Refactored line charts and added helper functions">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FSVG.App/Program.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.App/Program.fs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FSVG.Charts/Common.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/Common.fs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FSVG.Charts/LineCharts.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/LineCharts.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FSVG/Common.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG/Common.fs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +23,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Charts/Common.fs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG/Common.fs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MacroExpansionManager">
@@ -94,7 +96,7 @@
       <workItem from="1660672776063" duration="4855000" />
       <workItem from="1673089745539" duration="780000" />
       <workItem from="1683135813486" duration="11270000" />
-      <workItem from="1683238120863" duration="8252000" />
+      <workItem from="1683238120863" duration="15480000" />
     </task>
     <task id="LOCAL-00001" summary="Added FSVG.Charts.fsproj">
       <created>1683140416015</created>
@@ -117,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683372377306</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Refactored line charts and added helper functions">
+      <created>1683374740238</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1683374740238</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,6 +150,7 @@
     <MESSAGE value="Added FSVG.Charts.fsproj" />
     <MESSAGE value="Refactored LineCharts.fs to support multiple series and styling" />
     <MESSAGE value="Added support for ranges in line charts" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added support for ranges in line charts" />
+    <MESSAGE value="Refactored line charts and added helper functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored line charts and added helper functions" />
   </component>
 </project>
