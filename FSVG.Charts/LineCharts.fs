@@ -63,7 +63,7 @@ module LineCharts =
     let private createTitle (settings: Settings) (width: float) =
         match settings.Title with
         | Some title ->
-            $"""<text x="{settings.LeftOffset + (width / 2.)}" y="{5.}" style="font-size: 4px; text-anchor: middle; font-family: 'roboto'">{title}</text>"""
+            $"""<text x="{width / 2.}" y="{5.}" style="font-size: 4px; text-anchor: middle; font-family: 'roboto'">{title}</text>"""
         | None -> String.Empty
 
     let private createXMarks
@@ -129,7 +129,7 @@ module LineCharts =
             |> List.map (fun m ->
                 let y = float (height + settings.TopOffset) - ((float m / 100.) * float height) // + settings.TopOffset
                 //(float normalizedValue / 100.) * float maxHeight
-                let value = seriesCollection.SplitValueHandler m maxValue minValue
+                let value = seriesCollection.SplitValueHandler m minValue maxValue
 
                 $"""<path d="M {settings.LeftOffset - 1.} {y} L {width + settings.LeftOffset} {y}" fill="none" stroke="grey" style="stroke-width: 0.1" />
                             <text x="{8}" y="{y + 0.5}" style="font-size: 2px; text-anchor: end; font-family: 'roboto'">{value}</text>""")
@@ -212,7 +212,7 @@ module LineCharts =
         let pointWidth = width / float (seriesCollection.SeriesLength() - 1)
 
         let chart =
-            [ createTitle settings width
+            [ createTitle settings vbWidth
               createXAxis 90 10 80
               createYAxis 10 10 80
               createXMarks settings seriesCollection height pointWidth
