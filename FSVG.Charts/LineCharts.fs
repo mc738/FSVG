@@ -50,8 +50,8 @@ module LineCharts =
           XLabel: string option
           YLabel: string option
           LegendStyle: LegendStyle option
-          YMajorMarks: float list
-          YMinorMarks: float list }
+          YMajorMarkers: float list
+          YMinorMarkers: float list }
 
     let private createTitle (settings: Settings) (width: float) =
         match settings.Title with
@@ -136,8 +136,8 @@ module LineCharts =
             |> Axes.createXAxis<'T>
 
         let yAxis =
-            ({ MajorMarkers = settings.YMajorMarks
-               MinorMarkers = settings.YMinorMarks
+            ({ MajorMarkers = settings.YMajorMarkers
+               MinorMarkers = settings.YMinorMarkers
                ValueSplitter = seriesCollection.SplitValueHandler
                MaxValue = maxValue
                MinValue = minValue
