@@ -7,10 +7,12 @@
 
     <ItemGroup>
         <Compile Include="Common.fs" />
+        <Compile Include="Axes.fs" />
         <Compile Include="LineCharts.fs" />
         <Compile Include="BarCharts.fs" />
         <Compile Include="PieCharts.fs" />
         <Compile Include="FunnelCharts.fs" />
+        <Compile Include="ScatterCharts.fs" />
     </ItemGroup>
 
     <ItemGroup>

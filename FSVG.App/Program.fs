@@ -78,19 +78,21 @@ module LineChartTest =
     let run _ =
 
         let settings =
-            ({ LeftOffset = 10
-               BottomOffset = 10
-               TopOffset = 10
-               RightOffset = 10
+            ({ ChartDimensions =
+                { Height = 100.
+                  Width = 100.
+                  LeftOffset = 10
+                  BottomOffset = 10
+                  TopOffset = 10
+                  RightOffset = 10 }
                Title = Some "Test Chart 1"
                XLabel = Some "Test 1"
                YLabel = Some "Test 2"
                LegendStyle =
-                   ({
-                       Bordered = false
-                       Position = LegendPosition.Right
-                    }: LineCharts.LegendStyle)
-                   |> Some
+                 ({ Bordered = false
+                    Position = LegendPosition.Right }
+                 : LineCharts.LegendStyle)
+                 |> Some
                YMajorMarks = [ 50; 100 ]
                YMinorMarks = [ 25; 75 ] }
             : LineCharts.Settings)
@@ -138,10 +140,13 @@ module LineChartTest2 =
     let run _ =
 
         let settings =
-            ({ LeftOffset = 10
-               BottomOffset = 10
-               TopOffset = 10
-               RightOffset = 10
+            ({ ChartDimensions =
+                { Height = 100.
+                  Width = 100.
+                  LeftOffset = 10
+                  BottomOffset = 10
+                  TopOffset = 10
+                  RightOffset = 10 }
                Title = None
                XLabel = Some "Test 1"
                YLabel = Some "Test 2"

@@ -10,12 +10,40 @@ module Common =
         let dividend = float i * inverse |> Math.Ceiling
         dividend / inverse //|> int
 
+    type ChartDimensions =
+        { Height: float
+          Width: float
+          TopOffset: float
+          BottomOffset: float
+          LeftOffset: float
+          RightOffset: float }
+
+        member cd.ActualHeight = cd.Height - cd.TopOffset - cd.BottomOffset
+
+        member cd.ActualWidth = cd.Width - cd.LeftOffset - cd.RightOffset
+
+        member cd.Bottom = cd.Height - cd.BottomOffset
+
+        member cd.Right = cd.Width - cd.RightOffset
+
+        member cd.XMiddle = cd.LeftOffset + (cd.ActualWidth / 2.)
+
+        member cd.YMiddle = cd.TopOffset + (cd.ActualHeight / 2.)
+
+
     type ValueNormalizer<'T> = NormalizerParameters<'T> -> float
 
     and NormalizerParameters<'T> =
         { MaxValue: 'T
           MinValue: 'T
           Value: 'T }
+
+    type ValueSplitter<'T> = ValueSplitterParameters<'T> -> string
+
+    and ValueSplitterParameters<'T> =
+        { MinValue: 'T
+          MaxValue: 'T
+          Percentage: float }
 
     //type ChartContext = {
     //    Normalizer:
@@ -59,11 +87,11 @@ module Common =
             {content}
         </svg>"""
 
-    let valueSplitter<'T> (toFloatFn: 'T -> float) (percent: float) (minValue: 'T) (maxValue: 'T) =
-        let max = toFloatFn maxValue
-        let min = toFloatFn minValue
+    let valueSplitter<'T> (toFloatFn: 'T -> float) (parameters: ValueSplitterParameters<'T>) =
+        let max = toFloatFn parameters.MaxValue
+        let min = toFloatFn parameters.MinValue
 
-        min + (((max - min) / 100.) * percent) |> string
+        min + (((max - min) / 100.) * parameters.Percentage) |> string
 
     let floatValueSplitter (percent: float) (minValue: float) (maxValue: float) =
         minValue + (((maxValue - minValue) / 100.) * percent) |> string
@@ -75,7 +103,6 @@ module Common =
         let v = toFloatFn parameters.Value
 
         ((v - min) * 100.) / (max - min)
-
 
     let floatRangeNormalizer (parameters: NormalizerParameters<float>) =
         // From https://stackoverflow.com/questions/25835591/how-to-calculate-percentage-between-the-range-of-two-values-a-third-value-is
