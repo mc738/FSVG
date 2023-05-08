@@ -2,6 +2,9 @@
 
 open System
 
+/// <summary>
+/// This module is designed for internal use
+/// </summary>
 module Axes =
 
     [<RequireQualifiedAccess>]
@@ -12,7 +15,14 @@ module Axes =
     and StaticAxisSettings =
         { Markers: string list
           Label: string option
+          DisplayType: AxisDisplayType
           ChartDimensions: ChartDimensions }
+        
+    and [<RequireQualifiedAccess>] AxisDisplayType =
+        /// A section displays the title in the center.
+        | Section
+        // A marker displays the title on the left starting point.
+        | Marker
 
     and DynamicAxisSettings<'T> =
         { MajorMarkers: float list
@@ -40,14 +50,21 @@ module Axes =
             settings.ChartDimensions.ActualHeight + settings.ChartDimensions.TopOffset
 
         let markWidth =
-            settings.ChartDimensions.ActualWidth / float (settings.Markers.Length - 1)
+            match settings.DisplayType with
+            | AxisDisplayType.Section -> settings.ChartDimensions.ActualWidth / float (settings.Markers.Length)
+            | AxisDisplayType.Marker -> settings.ChartDimensions.ActualWidth / float (settings.Markers.Length - 1)
 
         settings.Markers
         |> List.mapi (fun i pn ->
             let floatI = float i
-
+            
+            let textX =
+                match settings.DisplayType with
+                | AxisDisplayType.Section -> settings.ChartDimensions.LeftOffset + (markWidth * floatI) + (markWidth / 2.)
+                | AxisDisplayType.Marker -> settings.ChartDimensions.LeftOffset + (markWidth * floatI)
+            
             $"""<path d="M {settings.ChartDimensions.LeftOffset + (markWidth * floatI)} {height + 1.} L {settings.ChartDimensions.LeftOffset + (markWidth * floatI)} {height}" fill="none" stroke="grey" style="stroke-width: 0.1" />
-                        <text x="{settings.ChartDimensions.LeftOffset + (markWidth * floatI)}" y="{height + 3.}" style="font-size: 2px; text-anchor: middle; font-family: 'roboto'">{pn}</text>""")
+                        <text x="{textX}" y="{height + 3.}" style="font-size: 2px; text-anchor: middle; font-family: 'roboto'">{pn}</text>""")
 
     let private createDynamicXMarkers<'T> (settings: DynamicAxisSettings<'T>) =
 

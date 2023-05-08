@@ -234,9 +234,63 @@ module ScatterChartTest =
 
         ()
 
+module BarChartsTest =
+    
+    let run _ =
+        
+        let settings =
+            ({ ChartDimensions =
+                { Height = 100.
+                  Width = 100.
+                  LeftOffset = 10
+                  BottomOffset = 10
+                  TopOffset = 10
+                  RightOffset = 10 }
+               Title = None
+               XLabel = Some "Test 1"
+               YLabel = Some "Test 2"
+               ChartDirection = BarCharts.ChartDirection.Vertical
+               SectionPadding = BarCharts.PaddingType.Specific 1. 
+               LegendStyle = None
+               MajorMarks = [ 50; 100 ]
+               MinorMarks = [ 25; 75 ] }
+            : BarCharts.Settings)
+
+        (*
+        "Item 1"
+        "Item 2"
+        "Item 3"
+        "Item 4"
+        "Item 5"
+        *)
+
+        let seriesCollection =
+            ({ SplitValueHandler = valueSplitter float
+               Normalizer = rangeNormalizer<int> float
+               SectionNames = [ "Item 1"; "Item 2"; "Item 3"; "Item 4"; "Item 5" ]
+               Series =
+                 [ ({ Name = "Series 1"
+                      Style =
+                        { Color = SvgColor.Grey
+                          StokeWidth = 0.3 }
+                      Values = [ -50; 40; -20; 40; -30 ] }
+                   : BarCharts.Series<int>)
+                   ({ Name = "Series 1"
+                      Style =
+                        { Color = SvgColor.Black
+                          StokeWidth = 0.3 }
+                      Values = [ 20; -40; 30; -70; 80 ] }
+                   : BarCharts.Series<int>) ] }
+            : BarCharts.SeriesCollection<int>)
+
+        BarCharts.generate settings seriesCollection -100 100
+        |> fun r -> File.WriteAllText("C:\\ProjectData\\TestSvgs\\FSVG-test_bar_chart.svg", r)
+    
+    
+
 LineChartTest.run ()
 LineChartTest2.run ()
 ScatterChartTest.run ()
-
+BarChartsTest.run ()
 // For more information see https://aka.ms/fsharp-console-apps
 printfn "Hello from F#"

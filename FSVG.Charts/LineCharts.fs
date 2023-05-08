@@ -2,6 +2,7 @@
 
 open System.IO
 open FSVG
+open FSVG.Charts.Axes
 
 [<RequireQualifiedAccess>]
 module LineCharts =
@@ -128,6 +129,7 @@ module LineCharts =
         let xAxis =
             ({ Markers = seriesCollection.PointNames
                Label = settings.XLabel
+               DisplayType = AxisDisplayType.Marker
                ChartDimensions = settings.ChartDimensions }
             : Axes.StaticAxisSettings)
             |> Axes.AxisType.Static

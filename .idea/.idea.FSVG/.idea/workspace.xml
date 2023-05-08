@@ -7,13 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="Big refactoring of LineCharts.fs and added Axes.fs for reusable boilplating of charts">
+    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="Added ScatterCharts.fs">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FSVG.App/Program.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.App/Program.fs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FSVG.Charts/Axes.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/Axes.fs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FSVG.Charts/Common.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/Common.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FSVG.Charts/BarCharts.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/BarCharts.fs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FSVG.Charts/LineCharts.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/LineCharts.fs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FSVG.Charts/ScatterCharts.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/ScatterCharts.fs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +23,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Charts/Axes.fs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Charts/Axes.fs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MacroExpansionManager">
@@ -97,7 +97,7 @@
       <workItem from="1673089745539" duration="780000" />
       <workItem from="1683135813486" duration="11270000" />
       <workItem from="1683238120863" duration="20439000" />
-      <workItem from="1683544752177" duration="7790000" />
+      <workItem from="1683544752177" duration="12686000" />
     </task>
     <task id="LOCAL-00001" summary="Added FSVG.Charts.fsproj">
       <created>1683140416015</created>
@@ -148,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683549545237</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added ScatterCharts.fs">
+      <created>1683553086383</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1683553086383</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,6 +183,7 @@
     <MESSAGE value="Added support for Y labels and a legend to LineCharts.fs" />
     <MESSAGE value="Fixed bug with LineCharts.fs and titles" />
     <MESSAGE value="Big refactoring of LineCharts.fs and added Axes.fs for reusable boilplating of charts" />
-    <option name="LAST_COMMIT_MESSAGE" value="Big refactoring of LineCharts.fs and added Axes.fs for reusable boilplating of charts" />
+    <MESSAGE value="Added ScatterCharts.fs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added ScatterCharts.fs" />
   </component>
 </project>
