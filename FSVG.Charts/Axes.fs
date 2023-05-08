@@ -35,7 +35,7 @@ module Axes =
     let private yAxis (dimensions: ChartDimensions) =
         $"""<path d="M {dimensions.LeftOffset} {dimensions.BottomOffset} L {dimensions.LeftOffset} {dimensions.Bottom}" fill="none" stroke="grey" stroke-width="0.2" />"""
 
-    let private createStaticXMarks (settings: StaticAxisSettings) =
+    let private createStaticXMarkers (settings: StaticAxisSettings) =
         let height =
             settings.ChartDimensions.ActualHeight + settings.ChartDimensions.TopOffset
 
@@ -49,7 +49,41 @@ module Axes =
             $"""<path d="M {settings.ChartDimensions.LeftOffset + (markWidth * floatI)} {height + 1.} L {settings.ChartDimensions.LeftOffset + (markWidth * floatI)} {height}" fill="none" stroke="grey" style="stroke-width: 0.1" />
                         <text x="{settings.ChartDimensions.LeftOffset + (markWidth * floatI)}" y="{height + 3.}" style="font-size: 2px; text-anchor: middle; font-family: 'roboto'">{pn}</text>""")
 
-    let private createDynamicYMarks<'T> (settings: DynamicAxisSettings<'T>) =
+    let private createDynamicXMarkers<'T> (settings: DynamicAxisSettings<'T>) =
+
+        let zero =
+            let value = settings.SplitValue 0.
+
+            $"""<path d="M {settings.ChartDimensions.LeftOffset} {settings.ChartDimensions.Bottom + 1.} L {settings.ChartDimensions.LeftOffset} {settings.ChartDimensions.LeftOffset}" fill="none" stroke="grey" style="stroke-width: 0.2" />
+                            <text x="{settings.ChartDimensions.LeftOffset}" y="{settings.ChartDimensions.Bottom + 3.}" style="font-size: 2px; text-anchor: middle; font-family: 'roboto'">{value}</text>"""
+
+        let major =
+            settings.MajorMarkers
+            |> List.map (fun m ->
+                let x =
+                    (settings.ChartDimensions.LeftOffset)
+                    + ((m / 100.) * settings.ChartDimensions.ActualWidth) // + settings.TopOffset
+                //(float normalizedValue / 100.) * float maxHeight
+                let value = settings.SplitValue m
+
+                $"""<path d="M {x} {settings.ChartDimensions.Bottom + 1.} L {x} {settings.ChartDimensions.Bottom}" fill="none" stroke="grey" style="stroke-width: 0.2" />
+                            <text x="{x}" y="{settings.ChartDimensions.Bottom + 3. + 0.5}" style="font-size: 2px; text-anchor: middle; font-family: 'roboto'">{value}</text>""")
+
+        let minor =
+            settings.MinorMarkers
+            |> List.map (fun m ->
+                let x =
+                    (settings.ChartDimensions.LeftOffset)
+                    + ((m / 100.) * settings.ChartDimensions.ActualWidth) // + settings.TopOffset
+                //(float normalizedValue / 100.) * float maxHeight
+                let value = settings.SplitValue m
+
+                $"""<path d="M {x} {settings.ChartDimensions.Bottom + 1.} L {x} {settings.ChartDimensions.Bottom}" fill="none" stroke="grey" style="stroke-width: 0.2" />
+                            <text x="{x}" y="{settings.ChartDimensions.Bottom + 3. + 0.5}" style="font-size: 2px; text-anchor: middle; font-family: 'roboto'">{value}</text>""")
+
+        [ zero; yield! major; yield! minor ]
+
+    let private createDynamicYMarkers<'T> (settings: DynamicAxisSettings<'T>) =
 
         let zero =
             let y = settings.ChartDimensions.ActualHeight + settings.ChartDimensions.TopOffset
@@ -94,18 +128,23 @@ module Axes =
         match axisType with
         | AxisType.Static settings ->
             [ xAxis settings.ChartDimensions
-              yield! createStaticXMarks settings
+              yield! createStaticXMarkers settings
               match settings.Label with
               | Some l -> createXLabel settings.ChartDimensions l
               | None -> () ]
-        | AxisType.Dynamic settings -> failwith "TODO"
+        | AxisType.Dynamic settings ->
+            [ xAxis settings.ChartDimensions
+              yield! createDynamicXMarkers settings
+              match settings.Label with
+              | Some l -> createXLabel settings.ChartDimensions l
+              | None -> () ]
 
     let createYAxis<'T> (axisType: AxisType<'T>) =
         match axisType with
         | AxisType.Static settings -> failwith "TODO"
         | AxisType.Dynamic settings ->
             [ yAxis settings.ChartDimensions
-              yield! createDynamicYMarks settings
+              yield! createDynamicYMarkers settings
               match settings.Label with
               | Some l -> createYLabel settings.ChartDimensions l
               | None -> () ]

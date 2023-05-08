@@ -52,10 +52,6 @@ module LineCharts =
           YMajorMarks: float list
           YMinorMarks: float list }
 
-    and LegendStyle =
-        { Position: LegendPosition
-          Bordered: bool }
-
     let private createTitle (settings: Settings) (width: float) =
         match settings.Title with
         | Some title ->

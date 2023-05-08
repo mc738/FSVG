@@ -91,7 +91,7 @@ module LineChartTest =
                LegendStyle =
                  ({ Bordered = false
                     Position = LegendPosition.Right }
-                 : LineCharts.LegendStyle)
+                 : LegendStyle)
                  |> Some
                YMajorMarks = [ 50; 100 ]
                YMinorMarks = [ 25; 75 ] }
@@ -191,9 +191,52 @@ module LineChartTest2 =
         LineCharts.generate settings seriesCollection -100 100
         |> fun r -> File.WriteAllText("C:\\ProjectData\\TestSvgs\\FSVG-test_line_chart-2.svg", r)
 
+module ScatterChartTest =
+
+    let run _ =
+
+        let settings =
+            ({ ChartDimensions =
+                { Height = 100.
+                  Width = 100.
+                  LeftOffset = 10
+                  BottomOffset = 10
+                  TopOffset = 10
+                  RightOffset = 10 }
+               Title = None
+               XLabel = Some "Test 1"
+               YLabel = Some "Test 2"
+               LegendStyle = None
+               XMajorMarks = [ 50; 100 ]
+               XMinorMarks = [ 25; 75 ]
+               YMajorMarks = [ 50; 100 ]
+               YMinorMarks = [ 25; 75 ] }
+            : ScatterCharts.Settings)
+
+        let seriesCollection =
+            ({ XSplitValueHandler = floatValueSplitter
+               YSplitValueHandler = floatValueSplitter
+               XNormalizer = floatRangeNormalizer
+               YNormalizer = floatRangeNormalizer
+               Series =
+                 [ ({ Name = "Series 1"
+                      Style = { Color = SvgColor.Grey }
+                      Values =
+                        [ { X = 0.; Y = 100.; R = None }
+                          { X = 10.; Y = 110.; R = None }
+                          { X = 20.; Y = 130.; R = Some 2. }
+                          { X = 50.; Y = 150.; R = Some 5. } ] }
+                   : ScatterCharts.Series<float, float>) ] }
+            : ScatterCharts.SeriesCollection<float, float>)
+
+        ScatterCharts.generate settings seriesCollection 0 100 100 200
+        |> fun r -> File.WriteAllText("C:\\ProjectData\\TestSvgs\\FSVG-test_scatter_chart.svg", r)
+
+        ()
 
 LineChartTest.run ()
 LineChartTest2.run ()
+ScatterChartTest.run ()
 
 // For more information see https://aka.ms/fsharp-console-apps
 printfn "Hello from F#"

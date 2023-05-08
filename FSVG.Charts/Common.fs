@@ -56,8 +56,11 @@ module Common =
           Value: 'T
           Color: string }
 
-    [<RequireQualifiedAccess>]
-    type LegendPosition =
+    type LegendStyle =
+        { Position: LegendPosition
+          Bordered: bool }
+
+    and [<RequireQualifiedAccess>] LegendPosition =
         | Right
         | Bottom
 
@@ -93,8 +96,8 @@ module Common =
 
         min + (((max - min) / 100.) * parameters.Percentage) |> string
 
-    let floatValueSplitter (percent: float) (minValue: float) (maxValue: float) =
-        minValue + (((maxValue - minValue) / 100.) * percent) |> string
+    let floatValueSplitter (parameters: ValueSplitterParameters<float>) =
+        parameters.MinValue + (((parameters.MaxValue - parameters.MinValue) / 100.) * parameters.Percentage) |> string
 
     let rangeNormalizer<'T> (toFloatFn: 'T -> float) (parameters: NormalizerParameters<'T>) =
         // From https://stackoverflow.com/questions/25835591/how-to-calculate-percentage-between-the-range-of-two-values-a-third-value-is
