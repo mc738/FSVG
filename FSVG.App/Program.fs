@@ -93,8 +93,8 @@ module LineChartTest =
                     Position = LegendPosition.Right }
                  : LegendStyle)
                  |> Some
-               YMajorMarks = [ 50; 100 ]
-               YMinorMarks = [ 25; 75 ] }
+               YMajorMarkers = [ 50; 100 ]
+               YMinorMarkers = [ 25; 75 ] }
             : LineCharts.Settings)
 
         (*
@@ -151,8 +151,8 @@ module LineChartTest2 =
                XLabel = Some "Test 1"
                YLabel = Some "Test 2"
                LegendStyle = None
-               YMajorMarks = [ 50; 100 ]
-               YMinorMarks = [ 25; 75 ] }
+               YMajorMarkers = [ 50; 100 ]
+               YMinorMarkers = [ 25; 75 ] }
             : LineCharts.Settings)
 
         (*
@@ -235,9 +235,9 @@ module ScatterChartTest =
         ()
 
 module BarChartsTest =
-    
+
     let run _ =
-        
+
         let settings =
             ({ ChartDimensions =
                 { Height = 100.
@@ -250,7 +250,7 @@ module BarChartsTest =
                XLabel = Some "Test 1"
                YLabel = Some "Test 2"
                ChartDirection = BarCharts.ChartDirection.Vertical
-               SectionPadding = BarCharts.PaddingType.Specific 1. 
+               SectionPadding = BarCharts.PaddingType.Specific 1.
                LegendStyle = None
                MajorMarks = [ 50; 100 ]
                MinorMarks = [ 25; 75 ] }
@@ -285,12 +285,50 @@ module BarChartsTest =
 
         BarCharts.generate settings seriesCollection -100 100
         |> fun r -> File.WriteAllText("C:\\ProjectData\\TestSvgs\\FSVG-test_bar_chart.svg", r)
-    
-    
+
+module PieChartsTest =
+
+    let run _ =
+
+        let settings =
+            ({ ChartDimensions =
+                { Height = 100.
+                  Width = 100.
+                  LeftOffset = 10
+                  BottomOffset = 10
+                  TopOffset = 10
+                  RightOffset = 10 }
+               Title = None
+               IsDonut = false }
+            : PieCharts.Settings)
+
+        let seriesCollection =
+            ({ Normalizer = rangeNormalizer<int> float
+               Series =
+                 [ { Name = "Test 1"
+                     Style = { Color = SvgColor.Named "green" }
+                     Value = 12 }
+                   { Name = "Item 2"
+                     Style = { Color = SvgColor.Named "orange" }
+                     Value = 13 }
+                   { Name = "Item 3"
+                     Style = { Color = SvgColor.Named "blue" }
+                     Value = 25 }
+                   { Name = "Item 4"
+                     Value = 30
+                     Style = { Color = SvgColor.Named "pink" } }
+                   { Name = "Item 5"
+                     Style = { Color = SvgColor.Named "yellow" }
+                     Value = 20 } ] }
+            : PieCharts.SeriesCollection<int>)
+            
+        PieCharts.generate settings seriesCollection 0 100
+        |> fun r -> File.WriteAllText("C:\\ProjectData\\TestSvgs\\FSVG-test_pie_chart.svg", r)
 
 LineChartTest.run ()
 LineChartTest2.run ()
 ScatterChartTest.run ()
 BarChartsTest.run ()
+PieChartsTest.run ()
 // For more information see https://aka.ms/fsharp-console-apps
 printfn "Hello from F#"

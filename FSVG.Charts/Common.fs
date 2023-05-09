@@ -1,5 +1,7 @@
 ﻿namespace FSVG.Charts
 
+open FSVG
+
 [<AutoOpen>]
 module Common =
 
@@ -29,6 +31,8 @@ module Common =
         member cd.XMiddle = cd.LeftOffset + (cd.ActualWidth / 2.)
 
         member cd.YMiddle = cd.TopOffset + (cd.ActualHeight / 2.)
+
+        member cd.CenterPoint = ({ X = cd.XMiddle; Y = cd.YMiddle }: SvgPoint)
 
 
     type ValueNormalizer<'T> = NormalizerParameters<'T> -> float
@@ -97,7 +101,9 @@ module Common =
         min + (((max - min) / 100.) * parameters.Percentage) |> string
 
     let floatValueSplitter (parameters: ValueSplitterParameters<float>) =
-        parameters.MinValue + (((parameters.MaxValue - parameters.MinValue) / 100.) * parameters.Percentage) |> string
+        parameters.MinValue
+        + (((parameters.MaxValue - parameters.MinValue) / 100.) * parameters.Percentage)
+        |> string
 
     let rangeNormalizer<'T> (toFloatFn: 'T -> float) (parameters: NormalizerParameters<'T>) =
         // From https://stackoverflow.com/questions/25835591/how-to-calculate-percentage-between-the-range-of-two-values-a-third-value-is
