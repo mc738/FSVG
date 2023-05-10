@@ -28,10 +28,10 @@ module ScatterCharts =
           XLabel: string option
           YLabel: string option
           LegendStyle: LegendStyle option
-          XMajorMarks: float list
-          XMinorMarks: float list
-          YMajorMarks: float list
-          YMinorMarks: float list }
+          XMajorMarkers: float list
+          XMinorMarkers: float list
+          YMajorMarkers: float list
+          YMinorMarkers: float list }
 
     let generate<'T, 'U>
         (settings: Settings)
@@ -51,8 +51,8 @@ module ScatterCharts =
             | None -> 100, 100
 
         let xAxis =
-            ({ MajorMarkers = settings.YMajorMarks
-               MinorMarkers = settings.YMinorMarks
+            ({ MajorMarkers = settings.YMajorMarkers
+               MinorMarkers = settings.YMinorMarkers
                ValueSplitter = seriesCollection.XSplitValueHandler
                MaxValue = maxXValue
                MinValue = minXValue
@@ -63,8 +63,8 @@ module ScatterCharts =
             |> Axes.createXAxis<'T>
 
         let yAxis =
-            ({ MajorMarkers = settings.YMajorMarks
-               MinorMarkers = settings.YMinorMarks
+            ({ MajorMarkers = settings.YMajorMarkers
+               MinorMarkers = settings.YMinorMarkers
                ValueSplitter = seriesCollection.YSplitValueHandler
                MaxValue = maxYValue
                MinValue = minYValue
