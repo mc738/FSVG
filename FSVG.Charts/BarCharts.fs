@@ -48,10 +48,6 @@ module BarCharts =
         | Horizontal
         | Vertical
 
-    and [<RequireQualifiedAccess>] PaddingType =
-        | Specific of Value: float
-        | Percent of Percent: float
-
     let private createTitle (settings: Settings) (width: float) =
         match settings.Title with
         | Some title ->

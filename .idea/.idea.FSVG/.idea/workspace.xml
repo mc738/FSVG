@@ -7,12 +7,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="Added ScatterCharts.fs">
+    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="Renamed markers">
+      <change afterPath="$PROJECT_DIR$/FSVG.Charts/CandleStickCharts.fs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FSVG.App/Program.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.App/Program.fs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FSVG.Charts/Axes.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/Axes.fs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FSVG.Charts/BarCharts.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/BarCharts.fs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FSVG.Charts/LineCharts.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/LineCharts.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FSVG.Charts/Common.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/Common.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FSVG.Charts/FSVG.Charts.fsproj" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/FSVG.Charts.fsproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FSVG.Charts/PieCharts.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/PieCharts.fs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +24,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Charts/Axes.fs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Charts/Axes.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Charts/ScatterCharts.fs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="0ma01xvv" />
@@ -97,7 +97,8 @@
       <workItem from="1673089745539" duration="780000" />
       <workItem from="1683135813486" duration="11270000" />
       <workItem from="1683238120863" duration="20439000" />
-      <workItem from="1683544752177" duration="12686000" />
+      <workItem from="1683544752177" duration="15013000" />
+      <workItem from="1683655036467" duration="7803000" />
     </task>
     <task id="LOCAL-00001" summary="Added FSVG.Charts.fsproj">
       <created>1683140416015</created>
@@ -155,7 +156,35 @@
       <option name="project" value="LOCAL" />
       <updated>1683553086383</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added BarCharts.fs">
+      <created>1683564121107</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1683564121107</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Renamed markers">
+      <created>1683585054456</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1683585054457</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Pie charts wip">
+      <created>1683660805274</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1683660805274</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Renamed markers">
+      <created>1683755729476</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1683755729476</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,6 +213,9 @@
     <MESSAGE value="Fixed bug with LineCharts.fs and titles" />
     <MESSAGE value="Big refactoring of LineCharts.fs and added Axes.fs for reusable boilplating of charts" />
     <MESSAGE value="Added ScatterCharts.fs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ScatterCharts.fs" />
+    <MESSAGE value="Added BarCharts.fs" />
+    <MESSAGE value="Pie charts wip" />
+    <MESSAGE value="Renamed markers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Renamed markers" />
   </component>
 </project>

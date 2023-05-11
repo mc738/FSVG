@@ -117,8 +117,8 @@ module PieCharts =
                            GenericValues = Map.empty } }
                     : CircleElement)
                     |> Element.Circle
-                    |> Element.GetString
-                    |> "<><>" ]
+                    |> Element.GetString ]
+                    //|> "<><>" ]
             | false -> acc
             |> String.concat Environment.NewLine
             |> boilerPlate true 100. 100.

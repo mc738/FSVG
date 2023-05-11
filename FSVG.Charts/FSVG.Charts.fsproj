@@ -13,6 +13,7 @@
         <Compile Include="PieCharts.fs" />
         <Compile Include="FunnelCharts.fs" />
         <Compile Include="ScatterCharts.fs" />
+        <Compile Include="CandleStickCharts.fs" />
     </ItemGroup>
 
     <ItemGroup>

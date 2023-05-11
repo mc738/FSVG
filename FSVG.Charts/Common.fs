@@ -67,6 +67,10 @@ module Common =
     and [<RequireQualifiedAccess>] LegendPosition =
         | Right
         | Bottom
+        
+    and [<RequireQualifiedAccess>] PaddingType =
+        | Specific of Value: float
+        | Percent of Percent: float
 
     /// Embed roboto font.
     let defs =
