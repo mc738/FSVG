@@ -7,13 +7,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="Renamed markers">
-      <change afterPath="$PROJECT_DIR$/FSVG.Charts/CandleStickCharts.fs" afterDir="false" />
+    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="CandleStickCharts.fs wip">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FSVG.Charts/BarCharts.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/BarCharts.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FSVG.App/Program.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.App/Program.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FSVG.Charts/CandleStickCharts.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/CandleStickCharts.fs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FSVG.Charts/Common.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/Common.fs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FSVG.Charts/FSVG.Charts.fsproj" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/FSVG.Charts.fsproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FSVG.Charts/PieCharts.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/PieCharts.fs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +22,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Charts/ScatterCharts.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Charts/BarCharts.fs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="0ma01xvv" />
@@ -99,6 +97,7 @@
       <workItem from="1683238120863" duration="20439000" />
       <workItem from="1683544752177" duration="15013000" />
       <workItem from="1683655036467" duration="7803000" />
+      <workItem from="1683840965300" duration="6477000" />
     </task>
     <task id="LOCAL-00001" summary="Added FSVG.Charts.fsproj">
       <created>1683140416015</created>
@@ -184,7 +183,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683755729476</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="CandleStickCharts.fs wip">
+      <created>1683845180032</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1683845180032</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,6 +222,7 @@
     <MESSAGE value="Added BarCharts.fs" />
     <MESSAGE value="Pie charts wip" />
     <MESSAGE value="Renamed markers" />
-    <option name="LAST_COMMIT_MESSAGE" value="Renamed markers" />
+    <MESSAGE value="CandleStickCharts.fs wip" />
+    <option name="LAST_COMMIT_MESSAGE" value="CandleStickCharts.fs wip" />
   </component>
 </project>

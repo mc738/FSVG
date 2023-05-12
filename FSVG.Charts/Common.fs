@@ -53,6 +53,15 @@ module Common =
     //    Normalizer:
     //}
 
+    type ValueComparer<'T> = ValueComparisonParameters<'T> -> ValueComparisonResult
+
+    and [<RequireQualifiedAccess>] ValueComparisonResult =
+        | GreaterThan
+        | LessThan
+        | Equal
+
+    and ValueComparisonParameters<'T> = { ValueA: 'T; ValueB: 'T }
+
     type ValueSeries<'T> = { Items: ValueSeriesItem<'T> list }
 
     and ValueSeriesItem<'T> =
@@ -67,7 +76,7 @@ module Common =
     and [<RequireQualifiedAccess>] LegendPosition =
         | Right
         | Bottom
-        
+
     and [<RequireQualifiedAccess>] PaddingType =
         | Specific of Value: float
         | Percent of Percent: float

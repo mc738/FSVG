@@ -207,10 +207,10 @@ module ScatterChartTest =
                XLabel = Some "Test 1"
                YLabel = Some "Test 2"
                LegendStyle = None
-               XMajorMarks = [ 50; 100 ]
-               XMinorMarks = [ 25; 75 ]
-               YMajorMarks = [ 50; 100 ]
-               YMinorMarks = [ 25; 75 ] }
+               XMajorMarkers = [ 50; 100 ]
+               XMinorMarkers = [ 25; 75 ]
+               YMajorMarkers = [ 50; 100 ]
+               YMinorMarkers = [ 25; 75 ] }
             : ScatterCharts.Settings)
 
         let seriesCollection =
@@ -250,7 +250,7 @@ module BarChartsTest =
                XLabel = Some "Test 1"
                YLabel = Some "Test 2"
                ChartDirection = BarCharts.ChartDirection.Vertical
-               SectionPadding = BarCharts.PaddingType.Specific 1.
+               SectionPadding = PaddingType.Specific 1.
                LegendStyle = None
                MajorMarks = [ 50; 100 ]
                MinorMarks = [ 25; 75 ] }
@@ -325,10 +325,95 @@ module PieChartsTest =
         PieCharts.generate settings seriesCollection 0 100
         |> fun r -> File.WriteAllText("C:\\ProjectData\\TestSvgs\\FSVG-test_pie_chart.svg", r)
 
+module CandleStickChartsTest =
+    
+    let run _ =
+        
+        
+        let settings =
+            ({ ChartDimensions =
+                { Height = 100.
+                  Width = 100.
+                  LeftOffset = 10
+                  BottomOffset = 10
+                  TopOffset = 10
+                  RightOffset = 10 }
+               Title = None
+               XLabel = Some "Test 1"
+               YLabel = Some "Test 2"
+               SectionPadding = PaddingType.Specific 1.
+               LegendStyle = None
+               MajorMarks = [ 50; 100 ]
+               MinorMarks = [ 25; 75 ] }
+            : CandleStickCharts.Settings)
+
+        let seriesCollection =
+            ({ SplitValueHandler = valueSplitter float
+               Normalizer = rangeNormalizer<int> float
+               ValueComparer = fun (p: ValueComparisonParameters<int>) ->
+                   match p.ValueA > p.ValueB with
+                   | true -> ValueComparisonResult.GreaterThan
+                   | false -> ValueComparisonResult.LessThan
+               SectionNames = [ "Item 1"; "Item 2"; "Item 3"; "Item 4"; "Item 5" ]
+               Series =
+                 [ ({ Name = "Series 1"
+                      Style =
+                        { Color = SvgColor.Grey
+                          StokeWidth = 0.3 }
+                      HighValue = 60
+                      LowValue = 30
+                      OpenValue = 35
+                      CloseValue = 50 }
+                   : CandleStickCharts.Series<int>)
+                   ({ Name = "Series 1"
+                      Style =
+                        { Color = SvgColor.Grey
+                          StokeWidth = 0.3 }
+                      HighValue = 70
+                      LowValue = 40
+                      OpenValue = 50
+                      CloseValue = 60 }
+                   : CandleStickCharts.Series<int>)
+                   ({ Name = "Series 1"
+                      Style =
+                        { Color = SvgColor.Grey
+                          StokeWidth = 0.3 }
+                      HighValue = 70
+                      LowValue = 30
+                      OpenValue = 60
+                      CloseValue = 50 }
+                   : CandleStickCharts.Series<int>)
+                   ({ Name = "Series 1"
+                      Style =
+                        { Color = SvgColor.Grey
+                          StokeWidth = 0.3 }
+                      HighValue = 80
+                      LowValue = 30
+                      OpenValue = 50
+                      CloseValue = 75 }
+                   : CandleStickCharts.Series<int>)
+                   ({ Name = "Series 1"
+                      Style =
+                        { Color = SvgColor.Grey
+                          StokeWidth = 0.3 }
+                      HighValue = 50
+                      LowValue = 25
+                      OpenValue = 30
+                      CloseValue = 40 }
+                   : CandleStickCharts.Series<int>) ] }
+            : CandleStickCharts.SeriesCollection<int>)
+
+        CandleStickCharts.generate settings seriesCollection 0 100
+        |> fun r -> File.WriteAllText("C:\\ProjectData\\TestSvgs\\FSVG-candle_stick_chart.svg", r)
+        
+        
+        ()
+
 LineChartTest.run ()
 LineChartTest2.run ()
 ScatterChartTest.run ()
 BarChartsTest.run ()
 PieChartsTest.run ()
+CandleStickChartsTest.run ()
 // For more information see https://aka.ms/fsharp-console-apps
 printfn "Hello from F#"

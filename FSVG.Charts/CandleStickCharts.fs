@@ -10,6 +10,7 @@ module CandleStickCharts =
     type SeriesCollection<'T> =
         { SplitValueHandler: ValueSplitter<'T>
           Normalizer: ValueNormalizer<'T>
+          ValueComparer: ValueComparer<'T>
           SectionNames: string list
           Series: Series<'T> list }
 
@@ -97,7 +98,7 @@ module CandleStickCharts =
             //|> String.concat Environment.NewLine
             | LegendPosition.Bottom -> []
 
-    let generate<'T> (seriesCollection: SeriesCollection<'T>) (settings: Settings) (minValue: 'T) (maxValue: 'T) =
+    let generate<'T> (settings: Settings) (seriesCollection: SeriesCollection<'T>) (minValue: 'T) (maxValue: 'T) =
         let (vbHeight, vbWidth) =
             match settings.LegendStyle with
             | Some legendStyle ->
@@ -136,18 +137,81 @@ module CandleStickCharts =
             | PaddingType.Specific v -> v
             | PaddingType.Percent v -> (sectionWidth / 100.) * v
 
+        let barWidth =
+            (sectionWidth - (sectionPadding * 2.))
+            
+
         let bars =
             seriesCollection.Series
-            |> List.map (fun s ->
-                
-                match top, bottom =
-                    match s.OpenValue
-                
-                
-                ())
-            
-            
-        
+            |> List.mapi (fun i s ->
+                let normalizeValue (value: 'T) =
+                    ({ MaxValue = maxValue
+                       MinValue = minValue
+                       Value = value })
+                    |> seriesCollection.Normalizer
+                    
+                let top, bottom, color =
+                    // ValueA is CloseValue because this is comparing if the value went up or down over the period.
+                    match
+                        { ValueA = s.CloseValue
+                          ValueB = s.OpenValue }
+                        |> seriesCollection.ValueComparer
+                    with
+                    | ValueComparisonResult.GreaterThan ->
+                        normalizeValue s.CloseValue, normalizeValue  s.OpenValue, SvgColor.Named "green"
+                    | ValueComparisonResult.LessThan ->
+                        normalizeValue s.OpenValue, normalizeValue s.CloseValue, SvgColor.Named "red"
+                    | ValueComparisonResult.Equal ->
+                        normalizeValue s.CloseValue, normalizeValue  s.OpenValue, SvgColor.Named "green"
+
+                let height = (settings.ChartDimensions.ActualHeight / 100. ) * (top - bottom)
+                    
+                [ ({ Height = height
+                     Width = barWidth
+                     X =
+                       settings.ChartDimensions.LeftOffset
+                       + sectionPadding
+                       + (float i * sectionWidth)
+                     Y =
+                       settings.ChartDimensions.BottomOffset +
+                       (((100. - bottom - (top - bottom)) / 100.) * settings.ChartDimensions.ActualHeight)
+                     RX = 0.
+                     RY = 0.
+                     Style =
+                       { Fill = color.GetValue() |> Some
+                         Stroke = None
+                         StrokeWidth = None
+                         Opacity = Some 1.
+                         GenericValues = Map.empty } }
+                  : RectElement)
+                  |> Element.Rect
+                  |> Element.GetString
+
+                  ({ X1 =
+                       settings.ChartDimensions.LeftOffset
+                       + (float i * sectionWidth)
+                       + (sectionWidth / 2.)
+                     X2 =
+                       settings.ChartDimensions.LeftOffset
+                       + (float i * sectionWidth)
+                       + (sectionWidth / 2.)
+                     Y1 =
+                         settings.ChartDimensions.BottomOffset
+                         + ((100. - normalizeValue s.HighValue) / 100.) * settings.ChartDimensions.ActualHeight
+                     Y2 =
+                         settings.ChartDimensions.BottomOffset
+                         + ((100. - normalizeValue s.LowValue) / 100.) * settings.ChartDimensions.ActualHeight
+                     Style =
+                       { Fill = None
+                         Stroke = color.GetValue() |> Some
+                         StrokeWidth = Some 1.
+                         Opacity = Some 1.
+                         GenericValues = Map.empty } }
+                  : LineElement)
+                  |> Element.Line
+                  |> Element.GetString ])
+            |> List.concat
+
         [ createTitle settings vbWidth
           yield! xAxis
           yield! yAxis
@@ -155,6 +219,3 @@ module CandleStickCharts =
           yield! bars ]
         |> String.concat Environment.NewLine
         |> boilerPlate true vbWidth vbHeight
-
-
-        ()
