@@ -130,3 +130,8 @@ module Common =
         // From https://stackoverflow.com/questions/25835591/how-to-calculate-percentage-between-the-range-of-two-values-a-third-value-is
         ((parameters.Value - parameters.MinValue) * 100.)
         / (parameters.MaxValue - parameters.MinValue)
+
+    let floatValueComparer (p: ValueComparisonParameters<float>) =
+        match p.ValueA > p.ValueB with
+        | true -> ValueComparisonResult.GreaterThan
+        | false -> ValueComparisonResult.LessThan

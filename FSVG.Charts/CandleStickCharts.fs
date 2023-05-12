@@ -39,8 +39,8 @@ module CandleStickCharts =
           YLabel: string option
           LegendStyle: LegendStyle option
           SectionPadding: PaddingType
-          MajorMarks: float list
-          MinorMarks: float list }
+          MajorMarkers: float list
+          MinorMarkers: float list }
 
     let private createTitle (settings: Settings) (width: float) =
         match settings.Title with
@@ -117,8 +117,8 @@ module CandleStickCharts =
             |> Axes.createXAxis<'T>
 
         let yAxis =
-            ({ MajorMarkers = settings.MajorMarks
-               MinorMarkers = settings.MinorMarks
+            ({ MajorMarkers = settings.MajorMarkers
+               MinorMarkers = settings.MinorMarkers
                ValueSplitter = seriesCollection.SplitValueHandler
                MaxValue = maxValue
                MinValue = minValue

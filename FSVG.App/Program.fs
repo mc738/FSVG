@@ -343,8 +343,8 @@ module CandleStickChartsTest =
                YLabel = Some "Test 2"
                SectionPadding = PaddingType.Specific 1.
                LegendStyle = None
-               MajorMarks = [ 50; 100 ]
-               MinorMarks = [ 25; 75 ] }
+               MajorMarkers = [ 50; 100 ]
+               MinorMarkers = [ 25; 75 ] }
             : CandleStickCharts.Settings)
 
         let seriesCollection =
