@@ -34,7 +34,7 @@ module LineCharts =
 
     and SeriesStyle =
         { Color: SvgColor
-          StokeWidth: float
+          StrokeWidth: float
           LineType: LineType
           Shading: ShadingOptions option }
 
@@ -184,10 +184,10 @@ module LineCharts =
                 |> fun r ->
                     let path = r |> List.map (fun c -> c.Render()) |> String.concat " "
 
-                    [ $"""<path d="{path}" fill="none" stroke="{series.Style.Color.GetValue()}" style="stroke-width: {series.Style.StokeWidth}" />"""
+                    [ $"""<path d="{path}" fill="none" stroke="{series.Style.Color.GetValue()}" style="stroke-width: {series.Style.StrokeWidth}" />"""
                       match series.Style.Shading with
                       | Some s ->
-                          $"""<path d="{path} L {settings.ChartDimensions.Right} {settings.ChartDimensions.Bottom} L {settings.ChartDimensions.LeftOffset} {settings.ChartDimensions.Bottom} Z" fill="{s.Color.GetValue()}" stroke="none" style="stroke-width: {series.Style.StokeWidth}" />"""
+                          $"""<path d="{path} L {settings.ChartDimensions.Right} {settings.ChartDimensions.Bottom} L {settings.ChartDimensions.LeftOffset} {settings.ChartDimensions.Bottom} Z" fill="{s.Color.GetValue()}" stroke="none" style="stroke-width: {series.Style.StrokeWidth}" />"""
                       | None -> () ])
 
         chart @ renderSeries

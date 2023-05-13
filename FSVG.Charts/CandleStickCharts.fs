@@ -7,12 +7,13 @@ module CandleStickCharts =
     open FSVG
     open FSVG.Charts.Axes
 
-    type SeriesCollection<'T> =
+    type Series<'T> =
         { SplitValueHandler: ValueSplitter<'T>
           Normalizer: ValueNormalizer<'T>
           ValueComparer: ValueComparer<'T>
+          Style: SeriesStyle
           SectionNames: string list
-          Series: Series<'T> list }
+          Values: SeriesValue<'T> list }
 
         member sc.SeriesLength() = sc.SectionNames.Length
 
@@ -22,15 +23,21 @@ module CandleStickCharts =
 
             ()
 
-    and Series<'T> =
-        { Name: string
-          Style: SeriesStyle
-          OpenValue: 'T
+    and SeriesValue<'T> =
+        { OpenValue: 'T
           CloseValue: 'T
           HighValue: 'T
           LowValue: 'T }
 
-    and SeriesStyle = { Color: SvgColor; StokeWidth: float }
+    and SeriesStyle =
+        { PositiveColor: SvgColor
+          NegativeColor: SvgColor
+          StrokeWidth: float }
+
+        static member Default() =
+            { PositiveColor = SvgColor.Named "green"
+              NegativeColor = SvgColor.Named "red"
+              StrokeWidth = 1. }
 
     type Settings =
         { ChartDimensions: ChartDimensions
@@ -48,24 +55,24 @@ module CandleStickCharts =
             $"""<text x="{width / 2.}" y="{5.}" style="font-size: 4px; text-anchor: middle; font-family: 'roboto'">{title}</text>"""
         | None -> String.Empty
 
-    let private createLegend (settings: Settings) (seriesCollection: SeriesCollection<'T>) =
+    let private createLegend (settings: Settings) (series: Series<'T>) =
+        // Is a the legend needed?
         match settings.LegendStyle with
         | None -> []
         | Some value ->
             match value.Position with
             | LegendPosition.Right ->
                 let legendHeight =
-                    seriesCollection.Series.Length * 2 + ((seriesCollection.Series.Length - 1) * 2)
-                    |> float
+                    series.Values.Length * 2 + ((series.Values.Length - 1) * 2) |> float
 
                 let start = 50. - (legendHeight / 2.)
 
-                seriesCollection.Series
+                series.Values
                 |> List.mapi (fun i s ->
                     let y = ((float i * 2.) + (float i * 2.)) + start
 
                     [ Dsl.rect
-                          ({ Fill = s.Style.Color.GetValue() |> Some
+                          ({ Fill = series.Style.PositiveColor.GetValue() |> Some
                              Opacity = Some 1.
                              Stroke = None
                              StrokeWidth = None
@@ -92,13 +99,13 @@ module CandleStickCharts =
                           : FSVG.Common.Style)
                           104.
                           y
-                          [ TextType.Literal s.Name ]
+                          [ TextType.Literal "" ]
                       |> Element.GetString ])
                 |> List.concat
             //|> String.concat Environment.NewLine
             | LegendPosition.Bottom -> []
 
-    let generate<'T> (settings: Settings) (seriesCollection: SeriesCollection<'T>) (minValue: 'T) (maxValue: 'T) =
+    let generate<'T> (settings: Settings) (series: Series<'T>) (minValue: 'T) (maxValue: 'T) =
         let (vbHeight, vbWidth) =
             match settings.LegendStyle with
             | Some legendStyle ->
@@ -108,7 +115,7 @@ module CandleStickCharts =
             | None -> 100, 100
 
         let xAxis =
-            ({ Markers = seriesCollection.SectionNames
+            ({ Markers = series.SectionNames
                Label = settings.XLabel
                DisplayType = AxisDisplayType.Section
                ChartDimensions = settings.ChartDimensions }
@@ -119,7 +126,7 @@ module CandleStickCharts =
         let yAxis =
             ({ MajorMarkers = settings.MajorMarkers
                MinorMarkers = settings.MinorMarkers
-               ValueSplitter = seriesCollection.SplitValueHandler
+               ValueSplitter = series.SplitValueHandler
                MaxValue = maxValue
                MinValue = minValue
                Label = settings.YLabel
@@ -130,51 +137,48 @@ module CandleStickCharts =
 
 
         let sectionWidth =
-            settings.ChartDimensions.ActualWidth / float (seriesCollection.SeriesLength())
+            settings.ChartDimensions.ActualWidth / float (series.SeriesLength())
 
         let sectionPadding =
             match settings.SectionPadding with
             | PaddingType.Specific v -> v
             | PaddingType.Percent v -> (sectionWidth / 100.) * v
 
-        let barWidth =
-            (sectionWidth - (sectionPadding * 2.))
-            
+        let barWidth = (sectionWidth - (sectionPadding * 2.))
+
 
         let bars =
-            seriesCollection.Series
-            |> List.mapi (fun i s ->
+            series.Values
+            |> List.mapi (fun i v ->
                 let normalizeValue (value: 'T) =
                     ({ MaxValue = maxValue
                        MinValue = minValue
                        Value = value })
-                    |> seriesCollection.Normalizer
-                    
+                    |> series.Normalizer
+
                 let top, bottom, color =
                     // ValueA is CloseValue because this is comparing if the value went up or down over the period.
                     match
-                        { ValueA = s.CloseValue
-                          ValueB = s.OpenValue }
-                        |> seriesCollection.ValueComparer
+                        { ValueA = v.CloseValue
+                          ValueB = v.OpenValue }
+                        |> series.ValueComparer
                     with
                     | ValueComparisonResult.GreaterThan ->
-                        normalizeValue s.CloseValue, normalizeValue  s.OpenValue, SvgColor.Named "green"
+                        normalizeValue v.CloseValue, normalizeValue v.OpenValue, series.Style.PositiveColor
                     | ValueComparisonResult.LessThan ->
-                        normalizeValue s.OpenValue, normalizeValue s.CloseValue, SvgColor.Named "red"
+                        normalizeValue v.OpenValue, normalizeValue v.CloseValue, series.Style.NegativeColor
                     | ValueComparisonResult.Equal ->
-                        normalizeValue s.CloseValue, normalizeValue  s.OpenValue, SvgColor.Named "green"
+                        normalizeValue v.CloseValue, normalizeValue v.OpenValue, series.Style.PositiveColor
 
-                let height = (settings.ChartDimensions.ActualHeight / 100. ) * (top - bottom)
-                    
+                let height = (settings.ChartDimensions.ActualHeight / 100.) * (top - bottom)
+
                 [ ({ Height = height
                      Width = barWidth
-                     X =
-                       settings.ChartDimensions.LeftOffset
-                       + sectionPadding
-                       + (float i * sectionWidth)
+                     X = settings.ChartDimensions.LeftOffset + sectionPadding + (float i * sectionWidth)
                      Y =
-                       settings.ChartDimensions.BottomOffset +
-                       (((100. - bottom - (top - bottom)) / 100.) * settings.ChartDimensions.ActualHeight)
+                       settings.ChartDimensions.BottomOffset
+                       + (((100. - bottom - (top - bottom)) / 100.)
+                          * settings.ChartDimensions.ActualHeight)
                      RX = 0.
                      RY = 0.
                      Style =
@@ -188,23 +192,25 @@ module CandleStickCharts =
                   |> Element.GetString
 
                   ({ X1 =
-                       settings.ChartDimensions.LeftOffset
-                       + (float i * sectionWidth)
-                       + (sectionWidth / 2.)
+                      settings.ChartDimensions.LeftOffset
+                      + (float i * sectionWidth)
+                      + (sectionWidth / 2.)
                      X2 =
                        settings.ChartDimensions.LeftOffset
                        + (float i * sectionWidth)
                        + (sectionWidth / 2.)
                      Y1 =
-                         settings.ChartDimensions.BottomOffset
-                         + ((100. - normalizeValue s.HighValue) / 100.) * settings.ChartDimensions.ActualHeight
+                       settings.ChartDimensions.BottomOffset
+                       + ((100. - normalizeValue v.HighValue) / 100.)
+                         * settings.ChartDimensions.ActualHeight
                      Y2 =
-                         settings.ChartDimensions.BottomOffset
-                         + ((100. - normalizeValue s.LowValue) / 100.) * settings.ChartDimensions.ActualHeight
+                       settings.ChartDimensions.BottomOffset
+                       + ((100. - normalizeValue v.LowValue) / 100.)
+                         * settings.ChartDimensions.ActualHeight
                      Style =
                        { Fill = None
                          Stroke = color.GetValue() |> Some
-                         StrokeWidth = Some 1.
+                         StrokeWidth = Some series.Style.StrokeWidth
                          Opacity = Some 1.
                          GenericValues = Map.empty } }
                   : LineElement)
@@ -215,7 +221,7 @@ module CandleStickCharts =
         [ createTitle settings vbWidth
           yield! xAxis
           yield! yAxis
-          yield! createLegend settings seriesCollection
+          yield! createLegend settings series
           yield! bars ]
         |> String.concat Environment.NewLine
         |> boilerPlate true vbWidth vbHeight

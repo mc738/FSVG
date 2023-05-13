@@ -113,7 +113,7 @@ module LineChartTest =
                  [ ({ Name = "Series 1"
                       Style =
                         { Color = SvgColor.Grey
-                          StokeWidth = 0.3
+                          StrokeWidth = 0.3
                           LineType = LineCharts.LineType.Straight
                           Shading =
                             ({ Color = SvgColor.Rgba(255uy, 0uy, 0uy, 0.3) }: LineCharts.ShadingOptions)
@@ -123,7 +123,7 @@ module LineChartTest =
                    ({ Name = "Series 2"
                       Style =
                         { Color = SvgColor.Black
-                          StokeWidth = 0.3
+                          StrokeWidth = 0.3
                           LineType = LineCharts.LineType.Bezier
                           Shading = None }
                       Values = [ 20; 40; 30; 70; 80 ] }
@@ -171,7 +171,7 @@ module LineChartTest2 =
                  [ ({ Name = "Series 1"
                       Style =
                         { Color = SvgColor.Grey
-                          StokeWidth = 0.3
+                          StrokeWidth = 0.3
                           LineType = LineCharts.LineType.Straight
                           Shading =
                             ({ Color = SvgColor.Rgba(255uy, 0uy, 0uy, 0.3) }: LineCharts.ShadingOptions)
@@ -181,7 +181,7 @@ module LineChartTest2 =
                    ({ Name = "Series 1"
                       Style =
                         { Color = SvgColor.Black
-                          StokeWidth = 0.3
+                          StrokeWidth = 0.3
                           LineType = LineCharts.LineType.Bezier
                           Shading = None }
                       Values = [ 20; -40; 30; -70; 80 ] }
@@ -321,15 +321,15 @@ module PieChartsTest =
                      Style = { Color = SvgColor.Named "yellow" }
                      Value = 20 } ] }
             : PieCharts.SeriesCollection<int>)
-            
+
         PieCharts.generate settings seriesCollection 0 100
         |> fun r -> File.WriteAllText("C:\\ProjectData\\TestSvgs\\FSVG-test_pie_chart.svg", r)
 
 module CandleStickChartsTest =
-    
+
     let run _ =
-        
-        
+
+
         let settings =
             ({ ChartDimensions =
                 { Height = 100.
@@ -350,63 +350,49 @@ module CandleStickChartsTest =
         let seriesCollection =
             ({ SplitValueHandler = valueSplitter float
                Normalizer = rangeNormalizer<int> float
-               ValueComparer = fun (p: ValueComparisonParameters<int>) ->
-                   match p.ValueA > p.ValueB with
-                   | true -> ValueComparisonResult.GreaterThan
-                   | false -> ValueComparisonResult.LessThan
+               ValueComparer =
+                 fun (p: ValueComparisonParameters<int>) ->
+                     match p.ValueA > p.ValueB with
+                     | true -> ValueComparisonResult.GreaterThan
+                     | false -> ValueComparisonResult.LessThan
+               Style =
+                 { PositiveColor = SvgColor.Named "green"
+                   NegativeColor = SvgColor.Named "red"
+                   StrokeWidth = 0.3 }
+
                SectionNames = [ "Item 1"; "Item 2"; "Item 3"; "Item 4"; "Item 5" ]
-               Series =
-                 [ ({ Name = "Series 1"
-                      Style =
-                        { Color = SvgColor.Grey
-                          StokeWidth = 0.3 }
-                      HighValue = 60
+               Values =
+                 [ ({ HighValue = 60
                       LowValue = 30
                       OpenValue = 35
                       CloseValue = 50 }
-                   : CandleStickCharts.Series<int>)
-                   ({ Name = "Series 1"
-                      Style =
-                        { Color = SvgColor.Grey
-                          StokeWidth = 0.3 }
-                      HighValue = 70
+                   : CandleStickCharts.SeriesValue<int>)
+                   ({ HighValue = 70
                       LowValue = 40
                       OpenValue = 50
                       CloseValue = 60 }
-                   : CandleStickCharts.Series<int>)
-                   ({ Name = "Series 1"
-                      Style =
-                        { Color = SvgColor.Grey
-                          StokeWidth = 0.3 }
-                      HighValue = 70
+                   : CandleStickCharts.SeriesValue<int>)
+                   ({ HighValue = 70
                       LowValue = 30
                       OpenValue = 60
                       CloseValue = 50 }
-                   : CandleStickCharts.Series<int>)
-                   ({ Name = "Series 1"
-                      Style =
-                        { Color = SvgColor.Grey
-                          StokeWidth = 0.3 }
-                      HighValue = 80
+                   : CandleStickCharts.SeriesValue<int>)
+                   ({ HighValue = 80
                       LowValue = 30
                       OpenValue = 50
                       CloseValue = 75 }
-                   : CandleStickCharts.Series<int>)
-                   ({ Name = "Series 1"
-                      Style =
-                        { Color = SvgColor.Grey
-                          StokeWidth = 0.3 }
-                      HighValue = 50
+                   : CandleStickCharts.SeriesValue<int>)
+                   ({ HighValue = 50
                       LowValue = 25
                       OpenValue = 30
                       CloseValue = 40 }
-                   : CandleStickCharts.Series<int>) ] }
-            : CandleStickCharts.SeriesCollection<int>)
+                   : CandleStickCharts.SeriesValue<int>) ] }
+            : CandleStickCharts.Series<int>)
 
         CandleStickCharts.generate settings seriesCollection 0 100
         |> fun r -> File.WriteAllText("C:\\ProjectData\\TestSvgs\\FSVG-candle_stick_chart.svg", r)
-        
-        
+
+
         ()
 
 LineChartTest.run ()
