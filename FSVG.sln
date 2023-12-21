@@ -6,6 +6,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSVG.App", "FSVG.App\FSVG.A
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSVG.Charts", "FSVG.Charts\FSVG.Charts.fsproj", "{AAF53ABD-BE8F-4449-87BC-EDDE07A15975}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSVG.Diagrams", "FSVG.Diagrams\FSVG.Diagrams.fsproj", "{3221ACC2-1CBD-4476-A02B-A88D5C809107}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{AAF53ABD-BE8F-4449-87BC-EDDE07A15975}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAF53ABD-BE8F-4449-87BC-EDDE07A15975}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAF53ABD-BE8F-4449-87BC-EDDE07A15975}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3221ACC2-1CBD-4476-A02B-A88D5C809107}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3221ACC2-1CBD-4476-A02B-A88D5C809107}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3221ACC2-1CBD-4476-A02B-A88D5C809107}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3221ACC2-1CBD-4476-A02B-A88D5C809107}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
