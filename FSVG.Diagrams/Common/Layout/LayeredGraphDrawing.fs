@@ -72,9 +72,6 @@ module LayeredGraphDrawing =
           CyclicReferences: VerificationResultItem list
           NodesNotFound: VerificationResultItem list }
         
-        member Valid(strictMode: bool) =
-            match strictMode, 
-
     let contains (comparison: StringComparison) (value: string) (values: string list) =
         values |> List.exists (fun v -> v.Equals(value, comparison))
 
@@ -164,6 +161,8 @@ module LayeredGraphDrawing =
 
         match parameters.Settings.StrictMode with
         | true ->
+            Ok ()
+        | false ->
             Ok ()
         
         
