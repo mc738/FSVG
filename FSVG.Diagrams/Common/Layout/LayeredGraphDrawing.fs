@@ -24,6 +24,11 @@ module LayeredGraphDrawing =
             NodeLimit: int option
             StringComparison: StringComparison
             StrictMode: bool
+            /// <summary>
+            /// A function for determining the preferred order of a node.
+            /// If set to "None" the node's index in the the initial list will be used. 
+            /// </summary>
+            PreferredOrderHandler: (Definitions.DiagramNode -> int) option
         }
 
     type Parameters =
@@ -40,14 +45,19 @@ module LayeredGraphDrawing =
     /// </summary>
     type InternalNode =
         { Node: Definitions.DiagramNode
+          PreferredOrder: int
           ConnectionsFrom: string list }
 
     let createInternalNodes (parameters: Parameters) =
         // PERFORMANCE Could this be optimized?
         parameters.Nodes
-        |> List.map (fun n ->
+        |> List.mapi (fun i n ->
 
             { Node = n
+              PreferredOrder =
+                  match parameters.Settings.PreferredOrderHandler with
+                  | Some poh -> poh n
+                  | None -> i
               ConnectionsFrom =
                 parameters.Nodes
                 |> List.filter (fun on ->
@@ -122,7 +132,13 @@ module LayeredGraphDrawing =
         //
         // However we will still need to rely on the order which the nodes are presented or else it will be impossible
         // which comes first.
-        // For example 
+        // For example A, B and C will all appear to have the same logic.
+        //
+        // The introduction of the `PreferredOrder` field in the not InternalNode type is meant to handle this.
+        // It basically means if A has a preferred order of 0 and B of 1,
+        // then A should strive to be in a higher layer B.
+        //
+        // Currently it is just set to the nodes index in the initial list but this could be customised.
         
         
         
