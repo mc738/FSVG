@@ -7,9 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +18,10 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2c8f3bf9d7e52da52533971fe2e3d4f83625ae6bc62056a7bda55c5ea6453b/prim-types.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="0ma01xvv" />
@@ -96,6 +98,7 @@
       <workItem from="1683655036467" duration="7803000" />
       <workItem from="1683840965300" duration="10861000" />
       <workItem from="1703180170151" duration="2493000" />
+      <workItem from="1703237885926" duration="4990000" />
     </task>
     <task id="LOCAL-00001" summary="Added FSVG.Charts.fsproj">
       <created>1683140416015</created>
@@ -249,7 +252,39 @@
       <option name="project" value="LOCAL" />
       <updated>1703182765713</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Work on LayeredGraphDrawing.fs">
+      <option name="closed" value="true" />
+      <created>1703238958486</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1703238958486</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Work on LayeredGraphDrawing.fs">
+      <option name="closed" value="true" />
+      <created>1703244155321</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1703244155321</updated>
+    </task>
+    <task id="LOCAL-00024" summary="More work on LayeredGraphDrawing.fs">
+      <option name="closed" value="true" />
+      <created>1703244867562</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1703244867562</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Work on preferred ordering">
+      <option name="closed" value="true" />
+      <created>1703245323785</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1703245323785</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -289,6 +324,9 @@
     <MESSAGE value="Updated FSVG.sln" />
     <MESSAGE value="Added LayeredGraphDrawing.fs" />
     <MESSAGE value="Added diagrams" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added diagrams" />
+    <MESSAGE value="Work on LayeredGraphDrawing.fs" />
+    <MESSAGE value="More work on LayeredGraphDrawing.fs" />
+    <MESSAGE value="Work on preferred ordering" />
+    <option name="LAST_COMMIT_MESSAGE" value="Work on preferred ordering" />
   </component>
 </project>

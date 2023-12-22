@@ -71,6 +71,9 @@ module LayeredGraphDrawing =
         { Successes: VerificationResultItem list
           CyclicReferences: VerificationResultItem list
           NodesNotFound: VerificationResultItem list }
+        
+        member Valid(strictMode: bool) =
+            match strictMode, 
 
     let contains (comparison: StringComparison) (value: string) (values: string list) =
         values |> List.exists (fun v -> v.Equals(value, comparison))
@@ -139,8 +142,9 @@ module LayeredGraphDrawing =
         // then A should strive to be in a higher layer B.
         //
         // Currently it is just set to the nodes index in the initial list but this could be customised.
-        
-        
+       
+         
+       
         
         
         
@@ -158,7 +162,11 @@ module LayeredGraphDrawing =
 
         let verificationResults = verifyInternalNodes parameters internalNodes
 
-
+        match parameters.Settings.StrictMode with
+        | true ->
+            Ok ()
+        
+        
 
         // First create a directed acyclic graph
         // This also needs to verify data to make sure cycles don't exist.
