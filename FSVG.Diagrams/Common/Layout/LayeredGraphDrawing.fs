@@ -54,21 +54,13 @@ module LayeredGraphDrawing =
                     on.Connections
                     |> List.exists (fun nc -> nc.ToId.Equals(n.Id, parameters.Settings.StringComparison)))
                 |> List.map (fun on -> on.Id) })
-    
+
     type VerificationResultItem = { FromNode: string; ToNode: string }
-    
-    type VerificationResult =
-        | Success of VerificationResultItem
-        | CyclicReference of VerificationResultItem
-        | NodeNotFound of VerificationResultItem
 
     type VerificationResults =
         { Successes: VerificationResultItem list
           CyclicReferences: VerificationResultItem list
           NodesNotFound: VerificationResultItem list }
-        
-        //static member Create(results: VerificationResult list) =
-            
 
     let contains (comparison: StringComparison) (value: string) (values: string list) =
         values |> List.exists (fun v -> v.Equals(value, comparison))
@@ -78,26 +70,17 @@ module LayeredGraphDrawing =
         // This are oversize, but in practice that shouldn't matter,
         // this is just a optimization to make the verification process a bit quicker/less resource intensive.
         // This uses nodes.Length / 2 for the second 2 because in general there should be less of these.
-        
+
         let successes = ResizeArray<VerificationResultItem>(nodes.Length)
         let cyclicReferences = ResizeArray<VerificationResultItem>(nodes.Length / 2)
-        let nodesNotFound = ResizeArray<VerificationResultItem>(nodes.Length /  2)
-        
-        //    results |> List.iter (fun r ->
-        //        match r with
-        //        | Success vri -> s.Add vri
-        //        | CyclicReference vri -> cr.Add vri
-        //        | NodeNotFound vri -> nnf.Add vri)
-            
-            
-        
-        
+        let nodesNotFound = ResizeArray<VerificationResultItem>(nodes.Length / 2)
+
         let nodesMap = nodes |> List.map (fun n -> n.Node.Id, n) |> Map.ofList
 
         nodes
-        |> List.collect (fun n ->
+        |> List.iter (fun n ->
             n.ConnectionsFrom
-            |> List.map (fun ncf ->
+            |> List.iter (fun ncf ->
                 match nodesMap.TryFind ncf with
                 | Some fn ->
                     match fn.ConnectionsFrom |> contains parameters.Settings.StringComparison n.Node.Id with
@@ -105,15 +88,46 @@ module LayeredGraphDrawing =
                         { FromNode = fn.Node.Id
                           ToNode = n.Node.Id }
                         |> cyclicReferences.Add
-                        
-                        
-                        VerificationResult.CyclicReference(n.Node.Id, fn.Node.Id)
-                    | false -> VerificationResult.Success(n.Node.Id, fn.Node.Id)
-                | None -> VerificationResult.NodeNotFound(n.Node.Id, ncf)))
+                    | false ->
+                        { FromNode = fn.Node.Id
+                          ToNode = n.Node.Id }
+                        |> successes.Add
+                | None -> { FromNode = ncf; ToNode = n.Node.Id } |> nodesNotFound.Add))
 
-
+        { Successes = successes |> List.ofSeq
+          CyclicReferences = cyclicReferences |> List.ofSeq
+          NodesNotFound = nodesNotFound |> List.ofSeq }
 
     let createLayers (parameters: Parameters) =
+        // With layers it is important to remember a node CAN have connections to higher later.
+        // This might be from the following:
+        // A -> B
+        // B -> C
+        // C -> A
+        //
+        // In this case layers should be like:
+        // 0: A
+        // 1: B
+        // 2: C
+        //
+        // The render will deal with creating the connection back to layer 0.
+        // This does mean however the logic here needs to smart enough to place A in the top layer,
+        // even if it is presented C,B,A etc..
+        //
+        // To handle this each nodes connections should be "back tracked" to find multiple cycling references.
+        // So for A the logic will be:
+        // * C connects to A
+        // * B connects to C
+        // * A connects to B
+        //
+        // However we will still need to rely on the order which the nodes are presented or else it will be impossible
+        // which comes first.
+        // For example 
+        
+        
+        
+        
+        
         let rec handler1 (layers) = ()
 
 
