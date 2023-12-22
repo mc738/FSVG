@@ -179,14 +179,4 @@ module LayeredGraphDrawing =
             
             failwith "Non strict mode to be implemented."
         
-        
-
-
-
-
-
-
-        ()
-
-
     ()
