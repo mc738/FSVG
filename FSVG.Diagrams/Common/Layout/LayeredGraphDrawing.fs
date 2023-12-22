@@ -154,19 +154,6 @@ module LayeredGraphDrawing =
 
     let handle (parameters: Parameters) =
 
-        // Pre - create and verify internal nodes.
-        let internalNodes = createInternalNodes parameters
-
-        let verificationResults = verifyInternalNodes parameters internalNodes
-
-        match parameters.Settings.StrictMode with
-        | true ->
-            Ok ()
-        | false ->
-            Ok ()
-        
-        
-
         // First create a directed acyclic graph
         // This also needs to verify data to make sure cycles don't exist.
         // Where the they are used `TwoWay` should be used instead.
@@ -175,6 +162,24 @@ module LayeredGraphDrawing =
         // and limit the number of that span multiple layers
 
         // Then we can start working out placement within layers and connections
+        
+        // Pre - create and verify internal nodes.
+        let internalNodes = createInternalNodes parameters
+
+        let verificationResults = verifyInternalNodes parameters internalNodes
+
+        match parameters.Settings.StrictMode with
+        | true ->
+            match verificationResults.CyclicReferences.Length > 0, verificationResults.NodesNotFound.Length > 0 with
+            | true, _ -> Error ""
+            | _, true -> Error ""
+            
+            Ok ()
+        | false ->
+            
+            failwith "Non strict mode to be implemented."
+        
+        
 
 
 
