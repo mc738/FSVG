@@ -7,11 +7,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="Got basic CandleStickCharts.fs working">
+    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FSVG.App/Program.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.App/Program.fs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FSVG.Charts/CandleStickCharts.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/CandleStickCharts.fs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FSVG.Charts/Common.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Charts/Common.fs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +19,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Charts/BarCharts.fs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Charts/CandleStickCharts.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2c8f3bf9d7e52da52533971fe2e3d4f83625ae6bc62056a7bda55c5ea6453b/prim-types.fs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="0ma01xvv" />
@@ -98,7 +94,8 @@
       <workItem from="1683238120863" duration="20439000" />
       <workItem from="1683544752177" duration="15013000" />
       <workItem from="1683655036467" duration="7803000" />
-      <workItem from="1683840965300" duration="7912000" />
+      <workItem from="1683840965300" duration="10861000" />
+      <workItem from="1703180170151" duration="2493000" />
     </task>
     <task id="LOCAL-00001" summary="Added FSVG.Charts.fsproj">
       <created>1683140416015</created>
@@ -198,7 +195,61 @@
       <option name="project" value="LOCAL" />
       <updated>1683919078477</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Clean up for CandleStickCharts.fs">
+      <created>1683930640294</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1683930640294</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Refactored CandleStickCharts.fs and fixed spelling">
+      <created>1683975238568</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1683975238568</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Added Definitions.fs">
+      <option name="closed" value="true" />
+      <created>1703182676247</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1703182676247</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Added Definitions.fs">
+      <option name="closed" value="true" />
+      <created>1703182690006</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1703182690006</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Updated FSVG.sln">
+      <option name="closed" value="true" />
+      <created>1703182732142</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1703182732142</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Added LayeredGraphDrawing.fs">
+      <option name="closed" value="true" />
+      <created>1703182742903</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1703182742903</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Added diagrams">
+      <option name="closed" value="true" />
+      <created>1703182765713</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1703182765713</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -232,6 +283,12 @@
     <MESSAGE value="Renamed markers" />
     <MESSAGE value="CandleStickCharts.fs wip" />
     <MESSAGE value="Got basic CandleStickCharts.fs working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Got basic CandleStickCharts.fs working" />
+    <MESSAGE value="Clean up for CandleStickCharts.fs" />
+    <MESSAGE value="Refactored CandleStickCharts.fs and fixed spelling" />
+    <MESSAGE value="Added Definitions.fs" />
+    <MESSAGE value="Updated FSVG.sln" />
+    <MESSAGE value="Added LayeredGraphDrawing.fs" />
+    <MESSAGE value="Added diagrams" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added diagrams" />
   </component>
 </project>
