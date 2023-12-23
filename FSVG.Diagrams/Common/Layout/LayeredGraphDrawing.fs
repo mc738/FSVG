@@ -26,7 +26,7 @@ module LayeredGraphDrawing =
             StrictMode: bool
             /// <summary>
             /// A function for determining the preferred order of a node.
-            /// If set to "None" the node's index in the the initial list will be used. 
+            /// If set to "None" the node's index in the the initial list will be used.
             /// </summary>
             PreferredOrderHandler: (Definitions.DiagramNode -> int) option
         }
@@ -55,9 +55,9 @@ module LayeredGraphDrawing =
 
             { Node = n
               PreferredOrder =
-                  match parameters.Settings.PreferredOrderHandler with
-                  | Some poh -> poh n
-                  | None -> i
+                match parameters.Settings.PreferredOrderHandler with
+                | Some poh -> poh n
+                | None -> i
               ConnectionsFrom =
                 parameters.Nodes
                 |> List.filter (fun on ->
@@ -71,7 +71,7 @@ module LayeredGraphDrawing =
         { Successes: VerificationResultItem list
           CyclicReferences: VerificationResultItem list
           NodesNotFound: VerificationResultItem list }
-        
+
     let contains (comparison: StringComparison) (value: string) (values: string list) =
         values |> List.exists (fun v -> v.Equals(value, comparison))
 
@@ -108,7 +108,7 @@ module LayeredGraphDrawing =
           CyclicReferences = cyclicReferences |> List.ofSeq
           NodesNotFound = nodesNotFound |> List.ofSeq }
 
-    let createLayers (parameters: Parameters) =
+    let createLayers (parameters: Parameters) (nodes: InternalNode list) =
         // With layers it is important to remember a node CAN have connections to higher later.
         // This might be from the following:
         // A -> B
@@ -139,16 +139,21 @@ module LayeredGraphDrawing =
         // then A should strive to be in a higher layer B.
         //
         // Currently it is just set to the nodes index in the initial list but this could be customised.
-       
-         
-       
+
+
+        // Step 1 - create layers. This is basically handled by ordered on the preferred other.
+        // The first round 
+        let orderedNodes = nodes |> List.sortBy (fun n -> n.PreferredOrder)
+
         
-        
-        
+        // Step 2 reduce layers 
+
+
         let rec handler1 (layers) = ()
 
 
 
+        
 
         ()
 
@@ -162,7 +167,7 @@ module LayeredGraphDrawing =
         // and limit the number of that span multiple layers
 
         // Then we can start working out placement within layers and connections
-        
+
         // Pre - create and verify internal nodes.
         let internalNodes = createInternalNodes parameters
 
@@ -173,10 +178,12 @@ module LayeredGraphDrawing =
             match verificationResults.CyclicReferences.Length > 0, verificationResults.NodesNotFound.Length > 0 with
             | true, _ -> Error ""
             | _, true -> Error ""
-            
-            Ok ()
+            | false, false ->
+
+
+                Ok()
         | false ->
-            
+
             failwith "Non strict mode to be implemented."
-        
+
     ()
