@@ -7,7 +7,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="" />
+    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="Work on algo">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,6 +21,10 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2c8f3bf9d7e52da52533971fe2e3d4f83625ae6bc62056a7bda55c5ea6453b/prim-types.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
@@ -99,6 +106,7 @@
       <workItem from="1683840965300" duration="10861000" />
       <workItem from="1703180170151" duration="2493000" />
       <workItem from="1703237885926" duration="4990000" />
+      <workItem from="1703268022524" duration="3433000" />
     </task>
     <task id="LOCAL-00001" summary="Added FSVG.Charts.fsproj">
       <created>1683140416015</created>
@@ -284,7 +292,71 @@
       <option name="project" value="LOCAL" />
       <updated>1703245323785</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Work on LayeredGraphDrawing.fs">
+      <option name="closed" value="true" />
+      <created>1703268159437</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1703268159437</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Work on LayeredGraphDrawing.fs">
+      <option name="closed" value="true" />
+      <created>1703268236015</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1703268236015</updated>
+    </task>
+    <task id="LOCAL-00028" summary="More work on LayeredGraphDrawing.fs">
+      <option name="closed" value="true" />
+      <created>1703268321237</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1703268321237</updated>
+    </task>
+    <task id="LOCAL-00029" summary="More work on LayeredGraphDrawing.fs">
+      <option name="closed" value="true" />
+      <created>1703268355512</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1703268355512</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Work on LayeredGraphDrawing.fs">
+      <option name="closed" value="true" />
+      <created>1703364634182</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1703364634182</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Work on comments">
+      <option name="closed" value="true" />
+      <created>1703364736249</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1703364736249</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Work on LayeredGraphDrawing.fs">
+      <option name="closed" value="true" />
+      <created>1703365084394</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1703365084394</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Work on algo">
+      <option name="closed" value="true" />
+      <created>1703366929611</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1703366929611</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,9 +396,11 @@
     <MESSAGE value="Updated FSVG.sln" />
     <MESSAGE value="Added LayeredGraphDrawing.fs" />
     <MESSAGE value="Added diagrams" />
-    <MESSAGE value="Work on LayeredGraphDrawing.fs" />
-    <MESSAGE value="More work on LayeredGraphDrawing.fs" />
     <MESSAGE value="Work on preferred ordering" />
-    <option name="LAST_COMMIT_MESSAGE" value="Work on preferred ordering" />
+    <MESSAGE value="More work on LayeredGraphDrawing.fs" />
+    <MESSAGE value="Work on comments" />
+    <MESSAGE value="Work on LayeredGraphDrawing.fs" />
+    <MESSAGE value="Work on algo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Work on algo" />
   </component>
 </project>

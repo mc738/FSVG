@@ -169,26 +169,31 @@ module LayeredGraphDrawing =
                        |> Option.map (fun cfo -> cfo < n.PreferredOrder)
                        |> Option.defaultValue false)
                    |> not)
-         
+
         let rec buildLayers (layers: NodeLayer list) (remaining: InternalNode list) =
             // There should always be one layer.
             let prevLayer = layers.Head
-            
+
             let (layerNodes, remaining) =
                 remaining
                 |> List.partition (fun n ->
-                    prevLayer.Nodes |> List.exists (fun pn -> n.ConnectionsFrom |> List.contains pn.Node.Id)
+                    prevLayer.Nodes
+                    |> List.exists (fun pn -> n.ConnectionsFrom |> List.contains pn.Node.Id)
                     || n.ConnectionsFrom
-                   |> List.exists (fun cf ->
-                       nodeOrderMap.TryFind cf
-                       |> Option.map (fun cfo -> cfo < n.PreferredOrder)
-                       |> Option.defaultValue false))
-            
+                       |> List.exists (fun cf ->
+                           nodeOrderMap.TryFind cf
+                           |> Option.map (fun cfo -> cfo < n.PreferredOrder)
+                           |> Option.defaultValue false))
+
+            let layer =
+                { Nodes = layerNodes
+                  Level = prevLayer.Level + 1 }
+
             match remaining.IsEmpty with
-            | true -> 
-            
-            ()
-            
+            | true -> layer :: layers |> List.rev
+            | false -> buildLayers (layer :: layers) remaining
+
+
         ()
 
 
