@@ -142,7 +142,7 @@ module LayeredGraphDrawing =
 
 
         // Step 1 - create layers. This is basically handled by ordered on the preferred other.
-        // The first round 
+        // The first round is not meant to be perfect but get nodes into vaguely the right layered.
         let orderedNodes = nodes |> List.sortBy (fun n -> n.PreferredOrder)
 
         
