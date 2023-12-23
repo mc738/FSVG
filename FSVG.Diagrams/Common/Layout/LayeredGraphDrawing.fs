@@ -140,13 +140,16 @@ module LayeredGraphDrawing =
         //
         // Currently it is just set to the nodes index in the initial list but this could be customised.
 
+        let nodeOrderMap = nodes |> List.map (fun n -> n.Node.Id, n.PreferredOrder) |> Map.ofList
 
         // Step 1 - create layers. This is basically handled by ordered on the preferred other.
         // The first round is not meant to be perfect but get nodes into vaguely the right layered.
         let orderedNodes = nodes |> List.sortBy (fun n -> n.PreferredOrder)
 
         
-        // Step 2 reduce layers 
+        // Step 2 - reduce layers. This is achieved by working through all the nodes and seeing how high up in the layers they can be placed.
+        // A Node with no from connections or from connections with a 
+          
 
 
         let rec handler1 (layers) = ()
