@@ -65,6 +65,9 @@ module LayeredGraphDrawing =
                     |> List.exists (fun nc -> nc.ToId.Equals(n.Id, parameters.Settings.StringComparison)))
                 |> List.map (fun on -> on.Id) })
 
+    type NodeLayer =
+        { Level: int; Nodes: InternalNode list }
+
     type VerificationResultItem = { FromNode: string; ToNode: string }
 
     type VerificationResults =
@@ -140,23 +143,62 @@ module LayeredGraphDrawing =
         //
         // Currently it is just set to the nodes index in the initial list but this could be customised.
 
-        let nodeOrderMap = nodes |> List.map (fun n -> n.Node.Id, n.PreferredOrder) |> Map.ofList
+        let nodeOrderMap =
+            nodes |> List.map (fun n -> n.Node.Id, n.PreferredOrder) |> Map.ofList
 
         // Step 1 - create layers. This is basically handled by ordered on the preferred other.
         // The first round is not meant to be perfect but get nodes into vaguely the right layered.
         let orderedNodes = nodes |> List.sortBy (fun n -> n.PreferredOrder)
 
-        
+
         // Step 2 - reduce layers. This is achieved by working through all the nodes and seeing how high up in the layers they can be placed.
-        // A Node with no from connections or from connections with a 
-          
+        // A node with no from connections or from connections with a higher preferred order will be in top layered etc.
+        // A node with from connections in the top layer will be in the second layer etc.
+        // However because not a nodes will have a layer at first this to be done in rounds.
+
+        let (topLevel, remaining) =
+            nodes
+            |> List.partition (fun n ->
+                // Check if the node has no connections coming to it or if there are some,
+                // they have a higher preferred order.
+                // TODO this needs testing.
+                n.ConnectionsFrom.IsEmpty
+                || n.ConnectionsFrom
+                   |> List.exists (fun cf ->
+                       nodeOrderMap.TryFind cf
+                       |> Option.map (fun cfo -> cfo < n.PreferredOrder)
+                       |> Option.defaultValue false)
+                   |> not)
+         
+        let rec buildLayers (layers: NodeLayer list) (remaining: InternalNode list) =
+            // There should always be one layer.
+            let prevLayer = layers.Head
+            
+            let (layerNodes, remaining) =
+                remaining
+                |> List.partition (fun n ->
+                    prevLayer.Nodes |> List.exists (fun pn -> n.ConnectionsFrom |> List.contains pn.Node.Id)
+                    || n.ConnectionsFrom
+                   |> List.exists (fun cf ->
+                       nodeOrderMap.TryFind cf
+                       |> Option.map (fun cfo -> cfo < n.PreferredOrder)
+                       |> Option.defaultValue false))
+            
+            match remaining.IsEmpty with
+            | true -> 
+            
+            ()
+            
+        ()
+
+
 
 
         let rec handler1 (layers) = ()
 
 
 
-        
+
 
         ()
 
