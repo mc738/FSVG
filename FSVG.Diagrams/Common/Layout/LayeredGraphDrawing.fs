@@ -183,7 +183,8 @@ module LayeredGraphDrawing =
                        |> List.exists (fun cf ->
                            nodeOrderMap.TryFind cf
                            |> Option.map (fun cfo -> cfo < n.PreferredOrder)
-                           |> Option.defaultValue false))
+                           |> Option.defaultValue false)
+                       |> not)
 
             let layer =
                 { Nodes = layerNodes
@@ -193,19 +194,7 @@ module LayeredGraphDrawing =
             | true -> layer :: layers |> List.rev
             | false -> buildLayers (layer :: layers) remaining
 
-
-        ()
-
-
-
-
-        let rec handler1 (layers) = ()
-
-
-
-
-
-        ()
+        buildLayers [ { Level = 0; Nodes = topLevel } ] remaining
 
     let handle (parameters: Parameters) =
 
