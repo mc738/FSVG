@@ -41,17 +41,26 @@ type LayeredGraphDrawingTests() =
                Class = None }
             : Definitions.DiagramNode)
 
+        let internalNodeA =
+            ({ Node = nodeA
+               PreferredOrder = 0
+               ConnectionsFrom = [ "node_c" ] }
+            : LayeredGraphDrawing.InternalNode)
+
+        let internalNodeB =
+            ({ Node = nodeB
+               PreferredOrder = 0
+               ConnectionsFrom = [ "node_a" ] }
+            : LayeredGraphDrawing.InternalNode)
+
+        let internalNodeC =
+            ({ Node = nodeC
+               PreferredOrder = 0
+               ConnectionsFrom = [ "node_b" ] }
+            : LayeredGraphDrawing.InternalNode)
 
         let nodes: LayeredGraphDrawing.InternalNode list =
-            [ { Node = nodeA
-                PreferredOrder = 0
-                ConnectionsFrom = [ "node_c" ] }
-              { Node = nodeB
-                PreferredOrder = 0
-                ConnectionsFrom = [ "node_a" ] }
-              { Node = nodeC
-                PreferredOrder = 0
-                ConnectionsFrom = [ "node_b" ] } ]
+            [ internalNodeA; internalNodeB; internalNodeC ]
 
         let parameters =
             ({ Nodes = [ nodeA; nodeB; nodeC ]
