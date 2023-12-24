@@ -49,13 +49,13 @@ type LayeredGraphDrawingTests() =
 
         let internalNodeB =
             ({ Node = nodeB
-               PreferredOrder = 0
+               PreferredOrder = 1
                ConnectionsFrom = [ "node_a" ] }
             : LayeredGraphDrawing.InternalNode)
 
         let internalNodeC =
             ({ Node = nodeC
-               PreferredOrder = 0
+               PreferredOrder = 2
                ConnectionsFrom = [ "node_b" ] }
             : LayeredGraphDrawing.InternalNode)
 
