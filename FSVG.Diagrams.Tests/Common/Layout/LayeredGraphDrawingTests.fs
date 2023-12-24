@@ -5,6 +5,9 @@ open FSVG.Diagrams.Common.Layout
 open FSVG.Diagrams.Common.Shared
 open Microsoft.VisualStudio.TestTools.UnitTesting
 
+// No warning needed for use of DiagramNode and Diagram, internal usage.
+#nowarn "10001"
+
 [<TestClass>]
 type LayeredGraphDrawingTests() =
 
