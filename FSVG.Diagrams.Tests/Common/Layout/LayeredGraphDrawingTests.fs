@@ -72,6 +72,11 @@ type LayeredGraphDrawingTests() =
                    PreferredOrderHandler = None } }
             : LayeredGraphDrawing.Parameters)
 
+        let expected: LayeredGraphDrawing.NodeLayer list =
+            [ { Level = 0; Nodes = [ internalNodeA ] }
+              { Level = 1; Nodes = [ internalNodeB ] }
+              { Level = 2; Nodes = [ internalNodeC ] } ]
+
         let actual = LayeredGraphDrawing.createLayers parameters nodes
 
-        ()
+        Assert.AreEqual(expected, actual)
