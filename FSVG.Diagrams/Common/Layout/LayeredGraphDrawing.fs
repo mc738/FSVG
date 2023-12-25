@@ -196,6 +196,90 @@ module LayeredGraphDrawing =
 
         buildLayers [ { Level = 0; Nodes = topLevel } ] remaining
 
+    let prepareRendering (parameters: Parameters) (nodes: Layer list) =
+        // Use grid settings
+        
+        // For the rows we use the layers.
+        // The columns are a little bit trickier.
+        // These need to be be in a way that makes sense.
+        // Some examples:
+        // 1.
+        //    A 
+        //    |\ 
+        //    | \
+        //   /\ /
+        //  B  C      
+        //
+        // C needs to go to the far column because it links back to A
+        // We also need an odd number of total columns (3 in this case).
+        // So A can be in column index 1, B in column index 0 and C in column index 2.
+        // OR 
+        // A can be positioned in in column index 0.5 (half way between 0 and 1)
+        // Should there be a setting for this?
+        //
+        // 2.
+        //    A 
+        //    |\ 
+        //    | \
+        //   /\ /
+        //  B  C      
+        //     |
+        //     D
+        //
+        //    A 
+        //    |\ 
+        //    | \
+        //   /\ /
+        //  B  C      
+        //  | / 
+        //  D  
+        //
+        // Prioritise keeping connected nodes in line with their LEFT MOST connection (where possible).
+        //
+        // 3.
+        //
+        //    A 
+        //    |\ 
+        //    | \
+        //   /\ /
+        //  B  C      
+        //  | /|
+        //  D  E
+        //
+        // 4.
+        //
+        //    A 
+        //    |\ 
+        //    | \
+        //   /\ /
+        //  B  C      
+        //  |\/|
+        //  |/\|
+        //  D  E
+        // 
+        // Preferred ordering might still be needed. In this case both B and C connect to D and E,
+        // so we need a way to determine the best order.
+        //
+        // 4.
+        //
+        //    A 
+        //    |\ 
+        //    | \
+        //   /\ /
+        //  B  C      
+        //  |  |
+        //     E -- D
+        //
+        // Side connections - here D will be layer 1 but is put to the side 
+        ({
+            Rows =
+                nodes |> List.map (fun )
+            
+        }: Rendering.GridRendererSettings)
+        
+        
+        ()
+    
     let handle (parameters: Parameters) =
 
         // First create a directed acyclic graph
