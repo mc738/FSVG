@@ -80,3 +80,42 @@ type LayeredGraphDrawingTests() =
         let actual = LayeredGraphDrawing.createLayers parameters nodes
 
         Assert.AreEqual(expected, actual)
+        
+        
+    [<TestMethod>]
+    member _.``createLayers single node``() =
+
+        let nodeA =
+            ({ Id = "node_a"
+               Connections =
+                 [ { ToId = "node_b"
+                     TwoWay = false
+                     Class = None } ]
+               Class = None }
+            : Definitions.DiagramNode)
+
+        let internalNodeA =
+            ({ Node = nodeA
+               PreferredOrder = 0
+               ConnectionsFrom = [ "node_c" ] }
+            : LayeredGraphDrawing.InternalNode)
+
+        let nodes: LayeredGraphDrawing.InternalNode list =
+            [ internalNodeA ]
+
+        let parameters =
+            ({ Nodes = [ nodeA ]
+               Settings =
+                 { NormalizeNodes = true
+                   NodeLimit = Some 1024
+                   StringComparison = StringComparison.OrdinalIgnoreCase
+                   StrictMode = true
+                   PreferredOrderHandler = None } }
+            : LayeredGraphDrawing.Parameters)
+
+        let expected: LayeredGraphDrawing.NodeLayer list =
+            [ { Level = 0; Nodes = [ internalNodeA ] } ]
+
+        let actual = LayeredGraphDrawing.createLayers parameters nodes
+
+        Assert.AreEqual(expected, actual)
