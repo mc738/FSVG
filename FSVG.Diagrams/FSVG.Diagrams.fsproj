@@ -7,7 +7,9 @@
 
     <ItemGroup>
         <Compile Include="Common\Shared\Definitions.fs" />
+        <Compile Include="Common\Shared\Rendering.fs" />
         <Compile Include="Common\Layout\LayeredGraphDrawing.fs" />
+        <Compile Include="Common\Rendering\Common.fs" />
         <Compile Include="FlowCharts\Definitions.fs" />
     </ItemGroup>
 
