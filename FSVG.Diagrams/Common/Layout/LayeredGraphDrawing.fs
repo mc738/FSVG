@@ -270,7 +270,29 @@ module LayeredGraphDrawing =
         //  |  |
         //     E -- D
         //
-        // Side connections - here D will be layer 1 but is put to the side 
+        // Side connections - here D will be layer 1 but is put to the side
+        //
+        // Calculations:
+        // |x|                  = n OR n + (n - 1)
+        // |x| |x|              = n + (n - 1)
+        // |x| |x| |x|          = n + (n - 1)
+        // |x| |x| |x| |x|      = n + (n - 1)
+        // |x| |x| |x| |x| |x|  = n + (n - 1)
+        //
+        // | | | |x| | | | -> left offset = total (4) - curr (1) = 3
+        // | | |x| |x| | | -> left offset = total (4) - curr (2) = 2
+        // | |x| |x| |x| | -> left offset = total (4) - curr (3) = 1
+        // |x| |x| |x| |x| 
+        
+        let getColumnCount (length: int) = length + (length - 1)
+        
+        let getColumnIndex (columnCount: int) (currColumnCount: int) (i: int) =
+            match currColumnCount = columnCount with
+            | true -> i + (i - 1) - 1 // - 1 to align this to 0 based index
+            | false ->
+                let leftOffset = columnCount - currColumnCount
+                leftOffset + i + (i - 1) - 1
+        
         ({
             Rows =
                 nodes |> List.map (fun )
