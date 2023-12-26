@@ -35,11 +35,6 @@ module LayeredGraphDrawing =
         { Nodes: Definitions.DiagramNode list
           Settings: Settings }
 
-    type Layer =
-        { Nodes: Definitions.DiagramNode
-          Order: int }
-
-
     /// <summary>
     /// An internal node, this reverses the connections to store a record of
     /// </summary>
@@ -196,77 +191,77 @@ module LayeredGraphDrawing =
 
         buildLayers [ { Level = 0; Nodes = topLevel } ] remaining
 
-    let prepareRendering (parameters: Parameters) (nodes: Layer list) =
+    let prepareRendering (parameters: Parameters) (nodes: NodeLayer list) =
         // Use grid settings
-        
+
         // For the rows we use the layers.
         // The columns are a little bit trickier.
         // These need to be be in a way that makes sense.
         // Some examples:
         // 1.
-        //    A 
-        //    |\ 
+        //    A
+        //    |\
         //    | \
         //   /\ /
-        //  B  C      
+        //  B  C
         //
         // C needs to go to the far column because it links back to A
         // We also need an odd number of total columns (3 in this case).
         // So A can be in column index 1, B in column index 0 and C in column index 2.
-        // OR 
+        // OR
         // A can be positioned in in column index 0.5 (half way between 0 and 1)
         // Should there be a setting for this?
         //
         // 2.
-        //    A 
-        //    |\ 
+        //    A
+        //    |\
         //    | \
         //   /\ /
-        //  B  C      
+        //  B  C
         //     |
         //     D
         //
-        //    A 
-        //    |\ 
+        //    A
+        //    |\
         //    | \
         //   /\ /
-        //  B  C      
-        //  | / 
-        //  D  
+        //  B  C
+        //  | /
+        //  D
         //
         // Prioritise keeping connected nodes in line with their LEFT MOST connection (where possible).
         //
         // 3.
         //
-        //    A 
-        //    |\ 
+        //    A
+        //    |\
         //    | \
         //   /\ /
-        //  B  C      
+        //  B  C
         //  | /|
         //  D  E
         //
         // 4.
         //
-        //    A 
-        //    |\ 
+        //    A
+        //    |\
         //    | \
         //   /\ /
-        //  B  C      
+        //  B  C
         //  |\/|
         //  |/\|
         //  D  E
-        // 
+        //
         // Preferred ordering might still be needed. In this case both B and C connect to D and E,
         // so we need a way to determine the best order.
         //
         // 4.
         //
-        //    A 
-        //    |\ 
+        //    A
+        //    |\
         //    | \
         //   /\ /
-        //  B  C      
+        //  B  C
         //  |  |
         //     E -- D
         //
@@ -282,26 +277,30 @@ module LayeredGraphDrawing =
         // | | | |x| | | | -> left offset = total (4) - curr (1) = 3
         // | | |x| |x| | | -> left offset = total (4) - curr (2) = 2
         // | |x| |x| |x| | -> left offset = total (4) - curr (3) = 1
-        // |x| |x| |x| |x| 
-        
+        // |x| |x| |x| |x|
+
         let getColumnCount (length: int) = length + (length - 1)
-        
+
         let getColumnIndex (columnCount: int) (currColumnCount: int) (i: int) =
             match currColumnCount = columnCount with
             | true -> i + (i - 1) - 1 // - 1 to align this to 0 based index
             | false ->
                 let leftOffset = columnCount - currColumnCount
                 leftOffset + i + (i - 1) - 1
-        
-        ({
-            Rows =
-                nodes |> List.map (fun )
-            
-        }: Rendering.GridRendererSettings)
-        
-        
-        ()
-    
+
+        ({ Rows =
+            nodes
+            |> List.map (fun ns ->
+
+
+                ({ Order = ns.Level
+                   Nodes = ns.Nodes |> List.map (fun n -> ({ Node = n.Node; Column = 0 }: Rendering.GridNode)) }
+                : Rendering.GridRow))
+
+         }
+        : Rendering.GridRendererSettings)
+
+
     let handle (parameters: Parameters) =
 
         // First create a directed acyclic graph
