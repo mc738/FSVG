@@ -19,8 +19,10 @@ type LayeredGraphDrawingTests() =
                Connections =
                  [ { ToId = "node_b"
                      TwoWay = false
-                     Class = None } ]
-               Class = None }
+                     Classes = List.empty
+                     Properties = Map.empty } ]
+               Classes = List.empty
+               Properties = Map.empty }
             : Definitions.DiagramNode)
 
         let nodeB =
@@ -28,8 +30,10 @@ type LayeredGraphDrawingTests() =
                Connections =
                  [ { ToId = "node_c"
                      TwoWay = false
-                     Class = None } ]
-               Class = None }
+                     Classes = List.empty
+                     Properties = Map.empty } ]
+               Classes = List.empty
+               Properties = Map.empty }
             : Definitions.DiagramNode)
 
         let nodeC =
@@ -37,8 +41,10 @@ type LayeredGraphDrawingTests() =
                Connections =
                  [ { ToId = "node_a"
                      TwoWay = false
-                     Class = None } ]
-               Class = None }
+                     Classes = List.empty
+                     Properties = Map.empty } ]
+               Classes = []
+               Properties = Map.empty }
             : Definitions.DiagramNode)
 
         let internalNodeA =
@@ -80,8 +86,8 @@ type LayeredGraphDrawingTests() =
         let actual = LayeredGraphDrawing.createLayers parameters nodes
 
         Assert.AreEqual(expected, actual)
-        
-        
+
+
     [<TestMethod>]
     member _.``createLayers single node``() =
 
@@ -90,8 +96,10 @@ type LayeredGraphDrawingTests() =
                Connections =
                  [ { ToId = "node_b"
                      TwoWay = false
-                     Class = None } ]
-               Class = None }
+                     Classes = List.empty
+                     Properties = Map.empty } ]
+               Classes = List.empty
+               Properties = Map.empty }
             : Definitions.DiagramNode)
 
         let internalNodeA =
@@ -100,8 +108,7 @@ type LayeredGraphDrawingTests() =
                ConnectionsFrom = [ "node_c" ] }
             : LayeredGraphDrawing.InternalNode)
 
-        let nodes: LayeredGraphDrawing.InternalNode list =
-            [ internalNodeA ]
+        let nodes: LayeredGraphDrawing.InternalNode list = [ internalNodeA ]
 
         let parameters =
             ({ Nodes = [ nodeA ]
