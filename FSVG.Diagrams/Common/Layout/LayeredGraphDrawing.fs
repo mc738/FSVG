@@ -5,6 +5,7 @@
 
 open System
 open FSVG.Diagrams.Common.Shared
+open FSVG.Diagrams.Common.Shared.Rendering
 
 [<RequireQualifiedAccess>]
 module LayeredGraphDrawing =
@@ -283,18 +284,28 @@ module LayeredGraphDrawing =
 
         let getColumnIndex (columnCount: int) (currColumnCount: int) (i: int) =
             match currColumnCount = columnCount with
-            | true -> i + (i - 1) - 1 // - 1 to align this to 0 based index
+            | true -> i + i 
             | false ->
                 let leftOffset = columnCount - currColumnCount
-                leftOffset + i + (i - 1) - 1
+                leftOffset + i + i
+
+        let maxColumns =
+            nodes
+            |> List.maxBy (fun ns -> ns.Nodes.Length)
+            |> fun ns -> getColumnCount ns.Nodes.Length
 
         ({ Rows =
             nodes
-            |> List.map (fun ns ->
+            |> List.mapi (fun i ns ->
                 ({ Order = ns.Level
+                   Height = RenderingUnit.Fixed 100. // TODO calculate
                    Nodes =
                      ns.Nodes
-                     |> List.map (fun n -> ({ Node = n.Node; Column = 0 }: Rendering.GridNode)) }
+                     |> List.map (fun n ->
+                         ({ Node = n.Node
+                            Width = RenderingUnit.Fixed 100. // TODO calculate
+                            Column = getColumnIndex maxColumns ns.Nodes.Length i }
+                         : Rendering.GridNode)) }
                 : Rendering.GridRow)) }
         : Rendering.GridRendererSettings)
 
