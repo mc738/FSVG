@@ -30,3 +30,5 @@ module Rendering =
     and GridNode =
         { Node: Definitions.DiagramNode
           Column: int }
+
+    type  
