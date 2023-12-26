@@ -291,13 +291,11 @@ module LayeredGraphDrawing =
         ({ Rows =
             nodes
             |> List.map (fun ns ->
-
-
                 ({ Order = ns.Level
-                   Nodes = ns.Nodes |> List.map (fun n -> ({ Node = n.Node; Column = 0 }: Rendering.GridNode)) }
-                : Rendering.GridRow))
-
-         }
+                   Nodes =
+                     ns.Nodes
+                     |> List.map (fun n -> ({ Node = n.Node; Column = 0 }: Rendering.GridNode)) }
+                : Rendering.GridRow)) }
         : Rendering.GridRendererSettings)
 
 
