@@ -16,21 +16,24 @@ module Definitions =
     [<CompilerMessage(typeUsageWarningMessage, 10001)>]
     type DiagramNode =
         { Id: string
-          Class: string option
+          Classes: string list
+          Properties: Map<string, string>
           Connections: DiagramNodeConnection list }
 
     and [<CompilerMessage(typeUsageWarningMessage, 10001)>] DiagramNodeConnection =
         {
             ToId: string
             TwoWay: bool
+            Properties: Map<string, string>
             /// <summary>
             /// The class is a default optional raw string value.
             /// When it comes to rendering it is up to the diagram rendered to handle this.
             /// </summary>
-            Class: string option
+            Classes: string list
         }
 
-        static member Create(toId: string, ?twoWay: bool, ?className: string) =
+        static member Create(toId: string, ?twoWay: bool, ?properties: Map<string, string>, ?classes: string list) =
             { ToId = toId
               TwoWay = twoWay |> Option.defaultValue false
-              Class = className }
+              Properties = properties |> Option.defaultValue Map.empty 
+              Classes = classes |> Option.defaultValue [] }
