@@ -23,7 +23,7 @@ module Common =
         { Order: int
           Nodes: GridNode list }
 
-        member gr.ColumnCount() = gr.Nodes.Length
+        member gr.ColumnCount() = gr.Nodes |> List.maxBy (fun r -> r.Column) |> fun r -> r.Column
 
     and GridNode =
         { Node: Definitions.DiagramNode
