@@ -294,10 +294,18 @@ module LayeredGraphDrawing =
             |> List.maxBy (fun ns -> ns.Nodes.Length)
             |> fun ns -> getColumnCount ns.Nodes.Length
 
+        let bumpColumns (newColumn: int) (nodes: GridNode list) =
+            nodes |> List.map (fun n -> match n.Column >= newColumn with true -> )
+        
         let createRow (layer: NodeLayer) (prevRow: GridRow option) =
             match prevRow with
             | Some pr ->
-                
+                layer.Nodes |> List.fold (fun acc n ->
+                    pr.Nodes
+                    |> List.filter (fun prn -> n.ConnectionsFrom |> List.contains prn.Node.Id)
+                    |> List.minBy (fun prn -> prn.Column)
+                    
+                    []) []
                 
                 
                 ()
