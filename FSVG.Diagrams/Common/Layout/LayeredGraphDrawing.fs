@@ -294,11 +294,16 @@ module LayeredGraphDrawing =
             |> List.maxBy (fun ns -> ns.Nodes.Length)
             |> fun ns -> getColumnCount ns.Nodes.Length
 
-        let reorderColumns (newColumn: int) (nodes: InternalNode list) =
+        let reorderNodes (newOrder: int) (nodes: InternalNode list) =
+            // We "reuse" preferred order here.
+            // The original preferred order information will be lost here,
+            // but can effectively be recreated if needed.
+            // It is assumed this will be used for ordering nodes in a layer.
+            
             nodes
             |> List.map (fun n ->
-                match n.Column >= newColumn with
-                | true -> { n with Column = n.Column + 1 }
+                match n.PreferredOrder >= newOrder with
+                | true -> { n with PreferredOrder = n.PreferredOrder + 1 }
                 | false -> n)
 
         
@@ -312,6 +317,8 @@ module LayeredGraphDrawing =
                         pr.Nodes
                         |> List.filter (fun prn -> n.ConnectionsFrom |> List.contains prn.Node.Id)
                         |> List.minBy (fun prn -> prn.Column)
+                        
+                        reorderNodes 
 
                         [])
                     []
