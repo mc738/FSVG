@@ -284,7 +284,7 @@ module LayeredGraphDrawing =
 
         let getColumnIndex (columnCount: int) (currColumnCount: int) (i: int) =
             match currColumnCount = columnCount with
-            | true -> i + i 
+            | true -> i + i
             | false ->
                 let leftOffset = columnCount - currColumnCount
                 leftOffset + i + i
@@ -295,24 +295,30 @@ module LayeredGraphDrawing =
             |> fun ns -> getColumnCount ns.Nodes.Length
 
         let bumpColumns (newColumn: int) (nodes: GridNode list) =
-            nodes |> List.map (fun n -> match n.Column >= newColumn with true -> )
-        
+            nodes
+            |> List.map (fun n ->
+                match n.Column >= newColumn with
+                | true -> { n with Column = n.Column + 1 }
+                | false -> n)
+
         let createRow (layer: NodeLayer) (prevRow: GridRow option) =
             match prevRow with
             | Some pr ->
-                layer.Nodes |> List.fold (fun acc n ->
-                    pr.Nodes
-                    |> List.filter (fun prn -> n.ConnectionsFrom |> List.contains prn.Node.Id)
-                    |> List.minBy (fun prn -> prn.Column)
-                    
-                    []) []
-                
-                
+                layer.Nodes
+                |> List.fold
+                    (fun acc n ->
+                        pr.Nodes
+                        |> List.filter (fun prn -> n.ConnectionsFrom |> List.contains prn.Node.Id)
+                        |> List.minBy (fun prn -> prn.Column)
+
+                        [])
+                    []
+
+
                 ()
-            | None ->
-                ()
-            
-        
+            | None -> ()
+
+
         ({ Rows =
             nodes
             |> List.mapi (fun i ns ->
