@@ -43,5 +43,4 @@ module Rendering =
         | Grid gridRendererSettings ->
             gridRendererSettings.Rows
             
-            failwith "todo"
         ()
