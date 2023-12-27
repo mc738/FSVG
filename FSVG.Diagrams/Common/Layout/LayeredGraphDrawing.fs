@@ -294,9 +294,11 @@ module LayeredGraphDrawing =
             |> List.maxBy (fun ns -> ns.Nodes.Length)
             |> fun ns -> getColumnCount ns.Nodes.Length
 
-        let orderNodes (layer: NodeLayer) (prevRow: GridRow option) =
+        let createRow (layer: NodeLayer) (prevRow: GridRow option) =
             match prevRow with
             | Some pr ->
+                
+                
                 
                 ()
             | None ->
