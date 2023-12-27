@@ -314,17 +314,13 @@ module LayeredGraphDrawing =
                 layer.Nodes
                 |> List.fold
                     (fun acc n ->
-                        pr.Nodes
-                        |> List.filter (fun prn -> n.ConnectionsFrom |> List.contains prn.Node.Id)
-                        |> List.minBy (fun prn -> prn.Column)
-                        
-                        reorderNodes 
-
-                        [])
+                        let prn =
+                            pr.Nodes
+                            |> List.filter (fun prn -> n.ConnectionsFrom |> List.contains prn.Node.Id)
+                            |> List.minBy (fun prn -> prn.Column)
+                            
+                        { n with PreferredOrder = prn.Column } :: reorderNodes prn.Column acc)
                     []
-
-
-                ()
             | None -> ()
 
 
