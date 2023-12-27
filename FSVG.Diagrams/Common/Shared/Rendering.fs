@@ -12,6 +12,11 @@ module Rendering =
 
     type RendererSettings = Grid of GridRendererSettings
 
+    and RenderingUnit =
+        | Fixed of float
+        | Percentage of float
+        | Dynamic
+    
     and GridRendererSettings =
         { Rows: GridRow list }
 
@@ -23,12 +28,20 @@ module Rendering =
     and GridRow =
 
         { Order: int
+          Height: RenderingUnit
           Nodes: GridNode list }
 
         member gr.ColumnCount() = gr.Nodes.Length
 
     and GridNode =
         { Node: Definitions.DiagramNode
+          Width: RenderingUnit
           Column: int }
 
-    type  
+    let run (settings: RendererSettings) =
+        match settings with
+        | Grid gridRendererSettings ->
+            gridRendererSettings.Rows
+            
+            failwith "todo"
+        ()
