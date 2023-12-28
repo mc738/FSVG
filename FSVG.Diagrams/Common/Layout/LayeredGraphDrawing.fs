@@ -289,6 +289,13 @@ module LayeredGraphDrawing =
                 let leftOffset = columnCount - currColumnCount
                 leftOffset + i + i
 
+        let columnIndexToOrder (columnCount: int) (currColumnCount: int) (columnIndex: int) =
+            match currColumnCount = columnCount with
+            | true -> columnIndex / 2
+            | false ->
+                let leftOffset = columnCount - currColumnCount
+                (columnIndex / 2) - leftOffset
+
         let maxColumns =
             nodes
             |> List.maxBy (fun ns -> ns.Nodes.Length)
@@ -299,29 +306,43 @@ module LayeredGraphDrawing =
             // The original preferred order information will be lost here,
             // but can effectively be recreated if needed.
             // It is assumed this will be used for ordering nodes in a layer.
-            
+
             nodes
             |> List.map (fun n ->
                 match n.PreferredOrder >= newOrder with
-                | true -> { n with PreferredOrder = n.PreferredOrder + 1 }
+                | true ->
+                    { n with
+                        PreferredOrder = n.PreferredOrder + 1 }
                 | false -> n)
 
-        
-        
         let createRow (layer: NodeLayer) (prevRow: GridRow option) =
-            match prevRow with
-            | Some pr ->
-                layer.Nodes
-                |> List.fold
-                    (fun acc n ->
-                        let prn =
-                            pr.Nodes
-                            |> List.filter (fun prn -> n.ConnectionsFrom |> List.contains prn.Node.Id)
-                            |> List.minBy (fun prn -> prn.Column)
-                            
-                        { n with PreferredOrder = prn.Column } :: reorderNodes prn.Column acc)
-                    []
-            | None -> ()
+            { Order = layer.Level
+              Height = RenderingUnit.Fixed 100. // TODO calculate
+              Nodes =
+                match prevRow with
+                | Some pr ->
+                    layer.Nodes
+                    |> List.fold
+                        (fun acc n ->
+                            let prn =
+                                pr.Nodes
+                                |> List.filter (fun prn -> n.ConnectionsFrom |> List.contains prn.Node.Id)
+                                |> List.minBy (fun prn -> prn.Column)
+                                |> fun prn -> columnIndexToOrder maxColumns (pr.ColumnCount()) prn.Column
+
+                            { n with PreferredOrder = prn } :: reorderNodes prn acc)
+                        []
+                | None -> layer.Nodes
+                |> List.sortBy (fun n -> n.PreferredOrder)
+                |> List.mapi (fun i n ->
+                    ({ Node = n.Node
+                       Width = RenderingUnit.Fixed 100. // TODO calculate
+                       Column = getColumnIndex maxColumns layer.Nodes.Length i }
+                    : Rendering.GridNode)) }
+
+
+
+        
 
 
         ({ Rows =
