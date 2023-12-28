@@ -8,9 +8,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="Work on Common.fs">
+    <list default="true" id="4730d898-b47d-464b-9e0c-0d2cecfe1d55" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FSVG/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FSVG.Diagrams/Common/Rendering/Common.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Diagrams/Common/Rendering/Common.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FSVG.Diagrams/Common/Shared/Rendering.fs" beforeDir="false" afterPath="$PROJECT_DIR$/FSVG.Diagrams/Common/Shared/Rendering.fs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +28,10 @@
     <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams.Tests/Common/Layout/LayeredGraphDrawingTests.fs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams.Tests/Common/Layout/LayeredGraphDrawingTests.fs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams.Tests/Common/Layout/LayeredGraphDrawingTests.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams.Tests/Common/Layout/LayeredGraphDrawingTests.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
@@ -41,6 +45,9 @@
     <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Layout/LayeredGraphDrawing.fs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Rendering/Common.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Shared/Rendering.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Shared/Rendering.fs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/44748/Projects/FSVG/FSVG.Diagrams/Common/Shared/Rendering.fs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="0ma01xvv" />
@@ -139,7 +146,7 @@
       <workItem from="1683840965300" duration="10861000" />
       <workItem from="1703180170151" duration="2493000" />
       <workItem from="1703237885926" duration="4990000" />
-      <workItem from="1703268022524" duration="10974000" />
+      <workItem from="1703268022524" duration="16475000" />
     </task>
     <task id="LOCAL-00001" summary="Added FSVG.Charts.fsproj">
       <created>1683140416015</created>
@@ -252,54 +259,6 @@
       <option name="presentableId" value="LOCAL-00016" />
       <option name="project" value="LOCAL" />
       <updated>1683975238568</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Work on LayeredGraphDrawing.fs">
-      <option name="closed" value="true" />
-      <created>1703244155321</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1703244155321</updated>
-    </task>
-    <task id="LOCAL-00024" summary="More work on LayeredGraphDrawing.fs">
-      <option name="closed" value="true" />
-      <created>1703244867562</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1703244867562</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Work on preferred ordering">
-      <option name="closed" value="true" />
-      <created>1703245323785</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1703245323785</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Work on LayeredGraphDrawing.fs">
-      <option name="closed" value="true" />
-      <created>1703268159437</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1703268159437</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Work on LayeredGraphDrawing.fs">
-      <option name="closed" value="true" />
-      <created>1703268236015</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1703268236015</updated>
-    </task>
-    <task id="LOCAL-00028" summary="More work on LayeredGraphDrawing.fs">
-      <option name="closed" value="true" />
-      <created>1703268321237</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1703268321237</updated>
     </task>
     <task id="LOCAL-00029" summary="More work on LayeredGraphDrawing.fs">
       <option name="closed" value="true" />
@@ -517,7 +476,55 @@
       <option name="project" value="LOCAL" />
       <updated>1703592306213</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Work on LayeredGraphDrawing.fs">
+      <option name="closed" value="true" />
+      <created>1703593017508</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1703593017508</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Updated Definitions.fs">
+      <option name="closed" value="true" />
+      <created>1703593175205</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1703593175209</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Cleaned up LayeredGraphDrawing.fs">
+      <option name="closed" value="true" />
+      <created>1703602040131</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1703602040132</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Fixed LayeredGraphDrawingTests.fs">
+      <option name="closed" value="true" />
+      <created>1703602052670</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1703602052670</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Work on Rendering.fs">
+      <option name="closed" value="true" />
+      <created>1703602080732</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1703602080732</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Work on LayeredGraphDrawing.fs">
+      <option name="closed" value="true" />
+      <created>1703615173361</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1703615173361</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -539,10 +546,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Added LayeredGraphDrawing.fs" />
-    <MESSAGE value="Added diagrams" />
-    <MESSAGE value="Work on preferred ordering" />
-    <MESSAGE value="More work on LayeredGraphDrawing.fs" />
     <MESSAGE value="Work on comments" />
     <MESSAGE value="Work on algo" />
     <MESSAGE value="Finished up basic algo" />
@@ -562,23 +565,27 @@
     <MESSAGE value="Added Rendering.fs" />
     <MESSAGE value="Removed Tests.fs" />
     <MESSAGE value="Work on projects" />
-    <MESSAGE value="Work on LayeredGraphDrawing.fs" />
     <MESSAGE value="Work on Common.fs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Work on Common.fs" />
+    <MESSAGE value="Updated Definitions.fs" />
+    <MESSAGE value="Cleaned up LayeredGraphDrawing.fs" />
+    <MESSAGE value="Fixed LayeredGraphDrawingTests.fs" />
+    <MESSAGE value="Work on Rendering.fs" />
+    <MESSAGE value="Work on LayeredGraphDrawing.fs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Work on LayeredGraphDrawing.fs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/FSVG.Diagrams.Tests/Common/Layout/LayeredGraphDrawingTests.fs</url>
-          <line>81</line>
+          <line>87</line>
           <properties documentPath="C:\Users\44748\Projects\FSVG\FSVG.Diagrams.Tests\Common\Layout\LayeredGraphDrawingTests.fs" initialLine="81" containingFunctionPresentation="" isMultiMethodBreakpoint="true">
             <option name="multiMethodBreakpoint" value="true" />
             <startOffsets>
-              <option value="2532" />
+              <option value="2818" />
             </startOffsets>
             <endOffsets>
-              <option value="2565" />
+              <option value="2851" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="1" />

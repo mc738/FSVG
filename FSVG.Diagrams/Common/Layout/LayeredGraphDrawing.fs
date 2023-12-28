@@ -317,7 +317,7 @@ module LayeredGraphDrawing =
 
         let createRow (layer: NodeLayer) (prevRow: GridRow option) =
             { Order = layer.Level
-              Height = RenderingUnit.Fixed 20. // TODO calculate
+              Height = RenderingUnit.Fixed 10. // TODO calculate
               Nodes =
                 match prevRow with
                 | Some pr ->
@@ -336,7 +336,7 @@ module LayeredGraphDrawing =
                 |> List.sortBy (fun n -> n.PreferredOrder)
                 |> List.mapi (fun i n ->
                     ({ Node = n.Node
-                       Width = RenderingUnit.Fixed 100. // TODO calculate
+                       Width = RenderingUnit.Fixed 20. // TODO calculate
                        Column = getColumnIndex maxColumns layer.Nodes.Length i }
                     : Rendering.GridNode)) }
 
