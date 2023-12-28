@@ -317,7 +317,7 @@ module LayeredGraphDrawing =
 
         let createRow (layer: NodeLayer) (prevRow: GridRow option) =
             { Order = layer.Level
-              Height = RenderingUnit.Fixed 100. // TODO calculate
+              Height = RenderingUnit.Fixed 20. // TODO calculate
               Nodes =
                 match prevRow with
                 | Some pr ->
@@ -340,24 +340,10 @@ module LayeredGraphDrawing =
                        Column = getColumnIndex maxColumns layer.Nodes.Length i }
                     : Rendering.GridNode)) }
 
-
-
-        
-
-
         ({ Rows =
             nodes
-            |> List.mapi (fun i ns ->
-                ({ Order = ns.Level
-                   Height = RenderingUnit.Fixed 100. // TODO calculate
-                   Nodes =
-                     ns.Nodes
-                     |> List.map (fun n ->
-                         ({ Node = n.Node
-                            Width = RenderingUnit.Fixed 100. // TODO calculate
-                            Column = getColumnIndex maxColumns ns.Nodes.Length i }
-                         : Rendering.GridNode)) }
-                : Rendering.GridRow)) }
+            |> List.fold (fun acc ns -> createRow ns (acc |> List.tryHead) :: acc) []
+            |> List.rev }
         : Rendering.GridRendererSettings)
 
 
