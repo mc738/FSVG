@@ -18,7 +18,9 @@ module Rendering =
         | Dynamic
     
     and GridRendererSettings =
-        { Rows: GridRow list }
+        { Rows: GridRow list
+          Properties: Map<string, string>
+          Classes: string list }
 
         member grs.RowCount() = grs.Rows.Length
 
@@ -41,6 +43,9 @@ module Rendering =
     let run (settings: RendererSettings) =
         match settings with
         | Grid gridRendererSettings ->
+            
+            
+            
             gridRendererSettings.Rows
             
         
