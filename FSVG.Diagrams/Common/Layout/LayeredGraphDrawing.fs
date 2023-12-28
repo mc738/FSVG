@@ -344,7 +344,9 @@ module LayeredGraphDrawing =
         ({ Rows =
             nodes
             |> List.fold (fun acc ns -> createRow ns (acc |> List.tryHead) :: acc) []
-            |> List.rev }
+            |> List.rev
+           Properties = [ "padding", string 5. ] |> Map.ofList
+           Classes = [] }
         : Rendering.GridRendererSettings)
 
 

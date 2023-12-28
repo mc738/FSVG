@@ -55,4 +55,11 @@ module Rendering =
         match settings with
         | Grid gridRendererSettings ->
 
+            // TODO make configurable, add margins etc.
+            let padding = gridRendererSettings.TryGetPropertyAsFloat "padding" |> Option.defaultValue 5.
+            
+            
+            
+            
             gridRendererSettings.Rows
+
