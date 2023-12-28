@@ -340,6 +340,7 @@ module LayeredGraphDrawing =
                        Column = getColumnIndex maxColumns layer.Nodes.Length i }
                     : Rendering.GridNode)) }
 
+        // TODO this doesn't currently support "side connections"
         ({ Rows =
             nodes
             |> List.fold (fun acc ns -> createRow ns (acc |> List.tryHead) :: acc) []
