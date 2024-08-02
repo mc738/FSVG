@@ -17,6 +17,8 @@ module Dsl =
         ({ Fill = fill
            Stroke = stroke
            StrokeWidth = strokeWidth
+           StrokeLineCap = None
+           StrokeDashArray = None 
            Opacity = opacity
            GenericValues = genericValues }: Style)
 
