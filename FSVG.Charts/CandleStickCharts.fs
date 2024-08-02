@@ -76,6 +76,8 @@ module CandleStickCharts =
                              Opacity = Some 1.
                              Stroke = None
                              StrokeWidth = None
+                             StrokeLineCap = None
+                             StrokeDashArray = None
                              GenericValues = Map.empty }
                           : FSVG.Common.Style)
                           0.
@@ -89,6 +91,8 @@ module CandleStickCharts =
                           ({ Fill = SvgColor.Black.GetValue() |> Some
                              Stroke = None
                              StrokeWidth = None
+                             StrokeLineCap = None
+                             StrokeDashArray = None
                              Opacity = Some 1.
                              GenericValues =
                                [ "font-family", "roboto"
@@ -146,7 +150,6 @@ module CandleStickCharts =
 
         let barWidth = (sectionWidth - (sectionPadding * 2.))
 
-
         let bars =
             series.Values
             |> List.mapi (fun i v ->
@@ -185,6 +188,8 @@ module CandleStickCharts =
                        { Fill = color.GetValue() |> Some
                          Stroke = None
                          StrokeWidth = None
+                         StrokeLineCap = None
+                         StrokeDashArray = None
                          Opacity = Some 1.
                          GenericValues = Map.empty } }
                   : RectElement)
@@ -211,6 +216,8 @@ module CandleStickCharts =
                        { Fill = None
                          Stroke = color.GetValue() |> Some
                          StrokeWidth = Some series.Style.StrokeWidth
+                         StrokeLineCap = None
+                         StrokeDashArray = None
                          Opacity = Some 1.
                          GenericValues = Map.empty } }
                   : LineElement)
