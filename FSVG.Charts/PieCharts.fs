@@ -113,6 +113,8 @@ module PieCharts =
                          { Fill = (SvgColor.Named "white").GetValue() |> Some
                            Stroke = None
                            StrokeWidth = None
+                           StrokeLineCap = None
+                           StrokeDashArray = None
                            Opacity = Some 1.
                            GenericValues = Map.empty } }
                     : CircleElement)
