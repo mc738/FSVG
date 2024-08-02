@@ -75,6 +75,8 @@ module BarCharts =
                              Opacity = Some 1.
                              Stroke = None
                              StrokeWidth = None
+                             StrokeLineCap = None
+                             StrokeDashArray = None
                              GenericValues = Map.empty }
                           : FSVG.Common.Style)
                           0.
@@ -88,6 +90,8 @@ module BarCharts =
                           ({ Fill = SvgColor.Black.GetValue() |> Some
                              Stroke = None
                              StrokeWidth = None
+                             StrokeLineCap = None
+                             StrokeDashArray = None
                              Opacity = Some 1.
                              GenericValues =
                                [ "font-family", "roboto"
@@ -190,6 +194,8 @@ module BarCharts =
                                    Stroke = None
                                    StrokeWidth = None
                                    Opacity = Some 1.
+                                   StrokeLineCap = None
+                                   StrokeDashArray = None
                                    GenericValues = Map.empty } }
                             : RectElement)
                             |> Element.Rect
