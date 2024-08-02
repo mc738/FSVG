@@ -80,6 +80,8 @@ module LineCharts =
                              Opacity = Some 1.
                              Stroke = None
                              StrokeWidth = None
+                             StrokeLineCap = None
+                             StrokeDashArray = None 
                              GenericValues = Map.empty }
                           : FSVG.Common.Style)
                           0.
@@ -93,6 +95,8 @@ module LineCharts =
                           ({ Fill = SvgColor.Black.GetValue() |> Some
                              Stroke = None
                              StrokeWidth = None
+                             StrokeLineCap = None
+                             StrokeDashArray = None
                              Opacity = Some 1.
                              GenericValues =
                                [ "font-family", "roboto"
