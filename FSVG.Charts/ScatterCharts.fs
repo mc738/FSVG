@@ -108,6 +108,8 @@ module ScatterCharts =
                         { Fill = series.Style.Color.GetValue() |> Some
                           Stroke = None
                           StrokeWidth = None
+                          StrokeLineCap = None
+                          StrokeDashArray = None
                           Opacity = Some 1.
                           GenericValues = Map.empty } }
                     |> Circle
