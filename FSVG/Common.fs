@@ -78,6 +78,8 @@ module Common =
         { Fill: string option
           Stroke: string option
           StrokeWidth: float option
+          StrokeLineCap: string option
+          StrokeDashArray: string option
           Opacity: float option
           GenericValues: Map<string, string> }
 
@@ -85,6 +87,8 @@ module Common =
             { Fill = None
               Stroke = None
               StrokeWidth = None
+              StrokeLineCap = None
+              StrokeDashArray = None 
               Opacity = Some 1.
               GenericValues = Map.empty }
 
