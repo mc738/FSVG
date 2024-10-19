@@ -10,6 +10,12 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSVG.Diagrams", "FSVG.Diagr
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSVG.Diagrams.Tests", "FSVG.Diagrams.Tests\FSVG.Diagrams.Tests.fsproj", "{E314F983-D70F-4845-9DF9-42F09F6A94C9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{FE224B3C-20BF-4A94-BE1E-458D2CDAF46F}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
