@@ -15,7 +15,8 @@ module Definitions =
         member fcn.ToNode() =
             ({ Id = fcn.Id
                Connections = []
-               Class = Some <| fcn.Class.Serialize() }
+               Classes = [ fcn.Class.Serialize() ]
+               Properties = Map.empty }
             : Definitions.DiagramNode)
 
     and FlowChartNodeConnection =
