@@ -4,6 +4,8 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>net6.0</TargetFramework>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <PackageProjectUrl>https://github.com/mc738/FSVG</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/mc738/FSVG</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>

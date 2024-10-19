@@ -76,7 +76,7 @@ module LayeredGraphDrawing =
 
     let verifyInternalNodes (parameters: Parameters) (nodes: InternalNode list) =
         // For go FP for the sake of internal usage.
-        // This are oversize, but in practice that shouldn't matter,
+        // This is oversize, but in practice that shouldn't matter,
         // this is just a optimization to make the verification process a bit quicker/less resource intensive.
         // This uses nodes.Length / 2 for the second 2 because in general there should be less of these.
 

@@ -5,6 +5,8 @@
 
         <IsPackable>false</IsPackable>
         <GenerateProgramFile>false</GenerateProgramFile>
+        <PackageProjectUrl>https://github.com/mc738/FSVG</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/mc738/FSVG</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
